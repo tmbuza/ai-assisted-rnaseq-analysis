@@ -1,0 +1,21 @@
+# Meet the data
+
+## The two inputs
+
+| File | First column | Other columns |
+|---|---|---|
+| `data/my-study/gene-counts.tsv` | `gene_id` (one unique gene per row) | One nonnegative integer count column per sample |
+| `data/my-study/sample-metadata.tsv` | `sample_id` (one unique sample per row) | Design variables, including a condition column |
+
+The current script accepts `group` with A/B for a simple replicated comparison, or `cell` plus `dex` with the airway paired layout. Your study may require a different design, level names, covariates or contrast: review and edit the script before inference. Do not rename real conditions A/B merely to force them through this template.
+
+To inspect just the header and first few rows in R:
+
+```r
+head(read.delim("data/my-study/gene-counts.tsv", check.names = FALSE)[, 1:4])
+head(read.delim("data/my-study/sample-metadata.tsv"))
+```
+
+Run those lines in an R console in the main project folder. Gene IDs are labels, not gene symbols unless the source annotation says so.
+
+[Next: Check the inputs](03-check-the-inputs.qmd)

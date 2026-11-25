@@ -1,0 +1,48 @@
+# Verify and explain
+
+Verification traces a saved number to its input. Start with A01, then use the gene table and PCA to support a carefully worded observation.
+
+## 1. Check A01 with the supplied script
+
+```bash
+Rscript scripts/R/verify_sample.R data/synthetic results/synthetic A01
+```
+
+The original bundled synthetic table has **A01 total 11,981** and **120 detected genes**. Compare those with A01 in `results/synthetic/tables/sample-qc.tsv`. If your input differs, use its actual values and document the version.
+
+## 2. Calculate independently
+
+Paste the following into an R console from the main project folder:
+
+```r
+x <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
+saved <- read.delim("results/synthetic/tables/sample-qc.tsv")
+manual_total <- sum(x$A01)
+manual_detected <- sum(x$A01 > 0)
+row <- saved[saved$sample_id == "A01", ]
+cat("Total: manual", manual_total, "saved", row$total_counts,
+    "agrees", identical(as.numeric(manual_total), as.numeric(row$total_counts)), "\n")
+cat("Detected: manual", manual_detected, "saved", row$detected_genes,
+    "agrees", identical(as.numeric(manual_detected), as.numeric(row$detected_genes)), "\n")
+```
+
+Both agreement checks should be `TRUE`. If not, confirm the sample ID, file version and whether the output is from the latest run. Do not edit a saved number to force agreement. This check verifies the count summary, **not** the DESeq2 fit.
+
+## 3. Connect a gene result to the question
+
+```r
+result <- read.delim("results/synthetic/tables/differential-expression.tsv")
+print(head(result[, c("gene_id", "log2FoldChange", "pvalue", "padj")]))
+cat("Genes with padj < 0.05:", sum(result$padj < 0.05, na.rm = TRUE), "\n")
+cat("Missing adjusted p-values:", sum(is.na(result$padj)), "\n")
+```
+
+Select one row. Check its sign against `group B A` in `run-log.txt`. Compare counts in all A and B replicates; explain why any one raw count cannot reproduce the model's fold change or p-value. Do not call a gene important merely because its adjusted p-value is small.
+
+## 4. Explain the PCA with evidence
+
+Open `results/synthetic/figures/sample-pca.png`. Describe a visible pattern, the percentages on the axes and any overlap. Link your sentence to the figure and at least one number from a table. A PCA cannot establish which genes are differentially expressed. Because all data here are fictional, do not assign a biological cause.
+
+**Ready to report:** state A01's independently checked values, one selected gene's direction and adjusted p-value, and one limitation.
+
+[Next: Write the report](06-export-the-report.qmd)

@@ -1,0 +1,55 @@
+project:
+  type: book
+  output-dir: docs
+book:
+  title: "AI-Assisted RNA-Seq Analysis with R"
+  subtitle: "From count data to results you understand and can defend"
+  author: "Teresia Mrema Buza | Complex Data Insights"
+  chapters:
+  - index.qmd
+  - part: "Required setup"
+    chapters:
+    - 00-setup.qmd
+  - part: "Synthetic practice"
+    chapters:
+    - examples/synthetic/00-start-here.qmd
+    - examples/synthetic/01-see-the-result.qmd
+    - examples/synthetic/02-meet-the-data.qmd
+    - examples/synthetic/03-check-the-inputs.qmd
+    - examples/synthetic/04-run-the-analysis.qmd
+    - examples/synthetic/05-verify-and-explain.qmd
+    - examples/synthetic/06-export-the-report.qmd
+  - part: "Airway case study"
+    chapters:
+    - examples/airway/00-start-here.qmd
+    - examples/airway/01-see-the-result.qmd
+    - examples/airway/02-meet-the-data.qmd
+    - examples/airway/03-check-the-inputs.qmd
+    - examples/airway/04-run-the-analysis.qmd
+    - examples/airway/05-verify-and-explain.qmd
+    - examples/airway/06-export-the-report.qmd
+  - part: "Your own study"
+    chapters:
+    - examples/my-study/00-start-here.qmd
+    - examples/my-study/01-see-the-result.qmd
+    - examples/my-study/02-meet-the-data.qmd
+    - examples/my-study/03-check-the-inputs.qmd
+    - examples/my-study/04-run-the-analysis.qmd
+    - examples/my-study/05-verify-and-explain.qmd
+    - examples/my-study/06-export-the-report.qmd
+  appendices:
+  - 99-appendix.qmd
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    css: assets/css/cdi.css
+    code-tools: false
+    mermaid:
+      theme: forest
+execute:
+  eval: false
+  warning: false
+  message: false

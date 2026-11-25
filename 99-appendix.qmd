@@ -1,0 +1,15 @@
+# Appendix
+
+## Key terms
+
+- **Raw gene count:** reads or fragments assigned to a gene in one sample; do not substitute TPM/FPKM for the count input here.
+- **Library total:** sum of raw counts in one column of the supplied count matrix; this is a count-table check, not a sequencing quality metric.
+- **Log2 fold change:** estimated treatment/group difference on a base-2 scale for the chosen contrast; positive means higher in the named numerator.
+- **Adjusted p-value:** p-value adjusted across many tested genes. `NA` values need investigation and should not be counted as significant.
+- **Cell line term:** in airway, accounts for baseline differences across the four measured cell lines.
+
+## Further reading
+
+- [Bioconductor airway dataset](https://bioconductor.org/packages/airway/)
+- [Bioconductor RNA-seq gene-level workflow](https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html)
+- [DESeq2 vignette](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)

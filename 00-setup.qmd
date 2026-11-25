@@ -1,0 +1,105 @@
+# Required setup
+
+This page takes you from the downloaded project to your first successful RNA-seq input check. R runs the analysis; Quarto renders the lessons and reports.
+
+::: {.callout-note icon=false}
+## What you will accomplish
+
+Open the project, create its `renv` environment, install the analysis packages and check the synthetic count files.
+:::
+
+## 1. Install software and open the project
+
+Install [R](https://cran.r-project.org/), [Quarto](https://quarto.org/docs/get-started/) and an editor such as [VS Code](https://code.visualstudio.com/) or RStudio. Reopen the terminal after installing R so it can find `Rscript`.
+
+Download and extract the RNA-seq project ZIP. Do **not** work inside the compressed ZIP. In VS Code choose **File → Open Folder** and open the extracted `ai-assisted-rnaseq-analysis` folder. You should see `_quarto.yml`, `data/`, `scripts/` and `examples/` directly inside it. Choose **Terminal → New Terminal**. Run the guide commands from this main folder.
+
+```bash
+Rscript --version
+```
+
+On macOS/Linux use `pwd` and `ls` to check your location; on Windows PowerShell use `Get-Location` and `Get-ChildItem`.
+
+## 2. Create the R package environment
+
+`renv` keeps packages in a project-specific library. The commands set a CRAN mirror explicitly so R does not stop at “Please select a CRAN mirror for use in this session”. Open an **R console** with the main project folder as its working directory. Confirm with `getwd()` before proceeding. Follow only the route that applies to your files.
+
+### If the project includes `renv.lock`
+
+Install `renv` if needed and restore its recorded package versions:
+
+```r
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("renv")
+renv::restore()
+renv::status()
+```
+
+Wait for restoration to finish and read any errors. This route applies once a tested lockfile and the `renv` activation files have been added to the project.
+
+### For this starter ZIP without a lockfile
+
+```r
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+install.packages("renv")
+renv::init(bare = TRUE)
+renv::install(c("BiocManager", "ggplot2"))
+BiocManager::install(c("DESeq2", "airway", "SummarizedExperiment"), ask = FALSE)
+renv::status()
+```
+
+`init()` creates `.Rprofile`, `renv/activate.R` and a local project library. If R restarts, reopen the project and continue in its environment. Run the analysis successfully **before** recording a reusable environment:
+
+```r
+renv::snapshot()
+renv::status()
+q(save = "no")
+```
+
+When sharing the project, include `renv.lock`, `.Rprofile` and `renv/activate.R`; leave out the machine-specific `renv/library/`. The starter ZIP contains no lockfile because the R analysis has not yet been executed and validated here. `renv` should activate when R starts in the initialized project. `renv::status()` checks its state.
+
+Run these expressions at an **R prompt**, not in Bash or PowerShell. To exit an R console, use `q(save = "no")` before entering `Rscript` commands in the terminal.
+
+## 3. Check the synthetic inputs
+
+From the main project folder:
+
+```bash
+Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
+```
+
+Expect **12 samples**, **120 genes** and design `~group`. This checks file structure, matching sample IDs, nonnegative integer counts and basic replication. It does not run DESeq2 or refresh old results.
+
+::: {.callout-tip}
+## Setup checkpoint
+
+Continue when the packages load in the project environment and the input check passes. If installation fails, resolve the complete error before running the analysis.
+:::
+
+## 4. Know where things live
+
+| Folder | Purpose |
+|---|---|
+| `data/` | Input counts and metadata by dataset |
+| `scripts/R/` | Preparation, analysis and verification scripts |
+| `examples/` | Seven lesson pages per dataset |
+| `results/` | Generated tables, figures and run logs |
+| `reports/` | Learner reports |
+| `docs/` | Rendered book after `quarto render` |
+| `renv/` | Project activation and package environment after initialization |
+
+Paths such as `data/synthetic/` are relative to the main folder. If a file cannot be found, check your terminal location before changing the command.
+
+## 5. Preview or render
+
+```bash
+quarto preview
+```
+
+Press **Ctrl+C** to stop preview. `quarto render` builds the complete guide. Rendering displays instructions; it does **not** run the analysis. To render a completed report after running the workflow, use `quarto render reports/synthetic-report.qmd --to html`.
+
+## Return for another session
+
+Open the same project folder. Its `.Rprofile` activates `renv` when R starts. Check `renv::status()` in R; if the lockfile and local library disagree, run `renv::restore()` before proceeding. Then use the `--check-only` command above to confirm the inputs.
+
+[Next: Start synthetic practice](examples/synthetic/00-start-here.qmd)

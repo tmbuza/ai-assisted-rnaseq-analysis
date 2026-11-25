@@ -1,0 +1,17 @@
+# Start here
+
+## The question
+
+**Example:** your research question. **Contrast:** your stated contrast.
+
+Supply `gene-counts.tsv` and `sample-metadata.tsv` using the formats below, then review your design with a mentor before running inference.
+
+The input is a matrix of raw integer gene counts and a sample metadata table. Each column represents one biological sample; each row represents one gene. This is a gene-level analysis, starting after sequencing and count generation.
+
+## Your task
+
+Write a one-sentence question that names the two conditions, the unit measured, and any matched samples or design terms. Record what might influence interpretation. For airway, four cell lines are measured under both treatment conditions; the model accounts for cell line. For synthetic data, group labels have no biological meaning.
+
+Proceed in order. Each page shows a command or checkpoint and explains how to inspect the result.
+
+[Next: See the result](01-see-the-result.qmd)

@@ -1,0 +1,15 @@
+# Run the analysis
+
+## Command
+
+```bash
+Rscript scripts/R/run_workflow.R data/my-study results/my-study
+```
+
+The workflow checks inputs again, saves sample totals, keeps genes with at least 10 counts in at least two samples, fits a DESeq2 negative binomial model, writes the result table, and creates a PCA plot from variance-stabilized values. The model is `~ group (template; change for your study)`; the contrast is **your stated contrast**. The reference condition is `A for the template`. A positive log2 fold change refers to higher model-estimated expression in `the numerator you explicitly set`.
+
+**For your study:** this command is valid only when your design genuinely matches one of the two supplied layouts. Edit the script and document the model and contrast before running another design. Ask a mentor to review confounding, pairing and replication.
+
+The model uses raw integer gene counts; its normalization is part of the fitting procedure. The PCA is exploratory. Read `results/my-study/run-log.txt` and confirm its design and contrast before interpreting the table.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)

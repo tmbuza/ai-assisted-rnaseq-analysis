@@ -1,0 +1,27 @@
+# Meet the data
+
+Two TSV files connect on sample IDs:
+
+| File | Rows | First column | Other columns |
+|---|---|---|---|
+| `data/synthetic/gene-counts.tsv` | 120 fictional genes | `gene_id` | Raw nonnegative integer counts for A01–A06 and B01–B06 |
+| `data/synthetic/sample-metadata.tsv` | 12 samples | `sample_id` | `group`, A or B |
+
+**Samples are columns in counts and rows in metadata.** Exact spelling and case matter. A zero is a count of zero in this file; a missing value is unknown and needs investigation.
+
+Inspect the files in an R console opened in the main project folder:
+
+```r
+counts <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
+metadata <- read.delim("data/synthetic/sample-metadata.tsv")
+cat("genes:", nrow(counts), "samples:", ncol(counts) - 1, "\n")
+print(table(metadata$group))
+print(head(counts[, 1:4]))
+print(head(metadata))
+```
+
+Expect 120 genes and six biological samples in each fictional group. Look up `Gene_001` for A01 and B01, but do not infer its model estimate from just those two raw values. Gene-level inference combines replicates, normalization, dispersion and the study design.
+
+**Record:** gene count, sample count, group sizes, and the first gene count for A01 and B01.
+
+[Next: Check the inputs](03-check-the-inputs.qmd)

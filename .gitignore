@@ -1,0 +1,8 @@
+renv/library/
+renv/staging/
+docs/
+results/*/figures/
+results/*/tables/
+results/*/run-log.txt
+
+/.quarto/

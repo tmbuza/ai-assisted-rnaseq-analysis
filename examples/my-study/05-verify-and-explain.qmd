@@ -1,0 +1,25 @@
+# Verify and explain
+
+## 1. Recalculate one sample
+
+For synthetic data choose `A01`; for airway choose a sample ID from `data/airway/sample-metadata.tsv`.
+
+```bash
+Rscript scripts/R/verify_sample.R data/my-study results/my-study <sample_id>
+```
+
+Replace `<sample_id>` with an actual ID when shown. The script sums that sample's raw gene counts, counts genes with nonzero counts, and compares both numbers with `tables/sample-qc.tsv`. A passing check supports the saved sample summary, **not** the whole differential expression model.
+
+## 2. Inspect the DE result
+
+Open `results/my-study/tables/differential-expression.tsv`. The gene IDs, `log2FoldChange`, `pvalue` and `padj` are central fields. Compare the sign of the estimated fold change with the named contrast. `padj < 0.05` is a chosen decision threshold, not proof that every selected gene has a large or biologically important effect. Investigate `NA` values rather than counting them as discoveries.
+
+Read `results/my-study/run-log.txt` and confirm the number of genes tested. Select one gene and compare its raw counts across samples. Raw counts alone do not reproduce the fitted log2 fold change or adjusted p-value: those depend on normalization, dispersion, the design and multiple-testing adjustment.
+
+## 3. Explain the PCA
+
+Look at `results/my-study/figures/sample-pca.png`. Describe where samples cluster, any unusual sample and how much variation PC1/PC2 represent. Consider batch, pairing and other recorded covariates. The PCA alone does not establish differential expression or causation.
+
+**Your evidence:** record one verified sample total, one gene with its sign and adjusted p-value (or explain why no gene passes your threshold), and one observation about the PCA. State at least one limitation.
+
+[Next: Write the report](06-export-the-report.qmd)

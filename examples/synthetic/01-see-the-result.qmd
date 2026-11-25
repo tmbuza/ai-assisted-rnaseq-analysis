@@ -1,0 +1,18 @@
+# See the result
+
+The outputs below appear after you run the workflow. Return here once they exist; do not use an old result from a different input version.
+
+| Output | What a row or point means | What it cannot tell you alone |
+|---|---|---|
+| `results/synthetic/tables/sample-qc.tsv` | One sample's sum of supplied counts and genes with count > 0 | Overall sequencing or alignment quality |
+| `results/synthetic/figures/sample-pca.png` | One sample in a PCA of variance-stabilized, filtered gene counts | Which genes are statistically significant |
+| `results/synthetic/tables/differential-expression.tsv` | One tested gene's model estimate and adjusted p-value | Its mechanism or biological importance |
+| `results/synthetic/run-log.txt` | The selected design, contrast, filter and versions | A complete record of the upstream sequencing pipeline |
+
+The PCA's colour indicates A or B. PC1 and PC2 labels state the variation explained by those axes. Samples close together have similar transformed profiles along those axes. A visual separation may motivate investigation; use the fitted model and design for the gene-level comparison.
+
+In the table, **positive `log2FoldChange` means higher in B relative to A**, based on the model. A value near 1 corresponds to about a twofold ratio, and near -1 to about half, before accounting for uncertainty. `padj` adjusts for multiple gene tests. A missing adjusted p-value is not a significant result.
+
+**Try this:** after the run, select a gene and state its estimated direction, `padj` and one limitation. Confirm the contrast in `run-log.txt` before writing the sentence.
+
+[Next: Meet the data](02-meet-the-data.qmd)

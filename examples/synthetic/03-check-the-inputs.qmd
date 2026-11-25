@@ -1,0 +1,24 @@
+# Check the inputs
+
+From the main project folder, run:
+
+```bash
+Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
+```
+
+Expect `Input checks passed: 12 samples; 120 genes; design ~group`. `--check-only` stops before DESeq2 fitting and does not refresh previous figures or tables.
+
+The script checks required headers, missing and duplicate identifiers, identical sample sets, finite nonnegative integer counts, A and B groups and replication. It aligns metadata rows to the count columns before modelling. It does **not** prove that the study is well designed.
+
+| If the check fails | Look for |
+|---|---|
+| Missing file | Current folder or exact filename |
+| Sample IDs differ | Spelling, extra columns, missing rows, case |
+| Counts not integers | Normalized values, decimal entries, text, missing values |
+| Missing replication | Too few independent samples in either group |
+
+A first header should be `gene_id` and `sample_id`, respectively. Renaming a header cannot fix a transposed count matrix. Do not invent replicates or overwrite raw data just to pass the check.
+
+**Checkpoint:** explain why passing the file check is necessary but does not establish a valid biological comparison.
+
+[Next: Run the analysis](04-run-the-analysis.qmd)

@@ -1,0 +1,16 @@
+# See the result
+
+## Preview your outputs
+
+After running the analysis, inspect:
+
+1. `results/my-study/tables/sample-qc.tsv`: raw count totals and the number of genes with a nonzero count in each sample.
+2. `results/my-study/figures/sample-pca.png`: exploratory clustering of samples after variance-stabilizing transformation.
+3. `results/my-study/tables/differential-expression.tsv`: one row per tested gene, with estimated log2 fold change, p-value and adjusted p-value.
+4. `results/my-study/run-log.txt`: design, contrast, filtering, software and tested-gene count.
+
+The files listed here are **expected outputs**, not evidence that the analysis has already run. A PCA plot helps identify patterns and possible outliers; it is not a statistical test of the treatment effect. The adjusted p-value applies to the specified fitted contrast, not an unadjusted comparison of raw counts.
+
+**Checkpoint:** Describe what you expect a positive log2 fold change to mean for your stated contrast.
+
+[Next: Meet the data](02-meet-the-data.qmd)

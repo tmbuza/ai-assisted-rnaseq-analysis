@@ -1,0 +1,62 @@
+# Write the report
+
+Open `reports/synthetic-report.qmd`. Create it if missing. Paste the template below and replace every bracketed prompt with your checked values. Figure paths are relative to the report in `reports/`.
+
+````markdown
+---
+title: "Synthetic RNA-seq practice report"
+format:
+  html:
+    toc: true
+---
+
+## Question and inputs
+
+Which fictional genes differ between group B and group A?
+
+The input consists of 120 invented gene rows and 12 fictional samples,
+six per group. [Confirm these counts from your files.]
+
+## Methods
+
+I checked the count matrix and metadata, then fitted the supplied DESeq2
+model `~ group` with B versus A as the contrast. Genes were kept when they
+had at least 10 counts in at least two samples. [Add R and DESeq2 versions
+from results/synthetic/run-log.txt and the number of genes tested.]
+
+## Verification
+
+For A01, the count total was [number] and [number] genes had nonzero counts.
+I recalculated both from gene-counts.tsv and [state agreement with sample-qc.tsv].
+
+## Results
+
+![PCA of variance-stabilized fictional gene counts.](../results/synthetic/figures/sample-pca.png)
+
+[Describe the group pattern, overlap and PC1/PC2 axis percentages.]
+
+[Identify one tested gene, its log2 fold-change direction and adjusted p-value;
+state how many genes meet your chosen threshold and how many padj values are NA.]
+
+## Interpretation and limits
+
+These data are fictional. The plot is exploratory; the gene table reflects
+its chosen model and contrast. No claim about a real biological process or
+clinical treatment follows from these results.
+
+## Reproducibility
+
+Inputs: data/synthetic/.
+Outputs: results/synthetic/.
+[Record your run date, exact command and source version.]
+````
+
+Render from the main project folder:
+
+```bash
+quarto render reports/synthetic-report.qmd --to html
+```
+
+Open the HTML, check the figure displays and remove unfinished bracketed prompts. Rendering the report uses existing outputs and does not rerun DESeq2.
+
+**Final check:** every number should trace to an input, output table or run record. Next, repeat the seven steps with the [airway case study](../airway/00-start-here.qmd), where cell line is part of the design.

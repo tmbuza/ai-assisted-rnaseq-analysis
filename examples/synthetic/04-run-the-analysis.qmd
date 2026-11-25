@@ -1,0 +1,34 @@
+# Run the analysis
+
+Keep the bundled inputs unchanged for your first run. From the main project folder:
+
+```bash
+Rscript scripts/R/run_workflow.R data/synthetic results/synthetic
+```
+
+The script repeats input checks, creates output directories, then fits a DESeq2 negative binomial model. Rerunning writes to the same named outputs. If an error interrupts the run, check file dates before using results.
+
+## Understand the work
+
+| Step | What the script does | Interpretation |
+|---|---|---|
+| Sample summary | Sums raw counts and counts genes with value > 0 per sample | Check against the supplied table; these are not overall FASTQ quality metrics |
+| Filtering | Keeps genes with counts ≥10 in at least two samples | Removes very low count genes before testing |
+| Model | Fits `~ group`, with A as reference | Estimates B versus A, using model-based normalization and dispersion |
+| Multiple testing | Saves DESeq2 `padj` | Addresses many tested genes; inspect `NA` values |
+| PCA | Variance-stabilizes filtered counts and plots PC1/PC2 | Exploratory display, not a significance test |
+
+## Find the outputs
+
+| File | Inspect |
+|---|---|
+| `results/synthetic/tables/sample-qc.tsv` | A01's `total_counts` and `detected_genes` |
+| `results/synthetic/tables/differential-expression.tsv` | Gene IDs, `log2FoldChange`, `pvalue`, `padj` |
+| `results/synthetic/figures/sample-pca.png` | Points, groups, axes and any outlier |
+| `results/synthetic/run-log.txt` | Design, contrast, filter, tested genes and R/DESeq2 versions |
+
+The full count matrix has 120 genes, while the DE result contains **tested genes after filtering**. Those counts need not be the same. The fictional groups have no real biological interpretation.
+
+**Checkpoint:** find all four outputs and confirm `group B A` is the recorded contrast.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)

@@ -1,0 +1,15 @@
+# Check the inputs
+
+## Run the checks
+
+```bash
+Rscript scripts/R/run_workflow.R data/my-study results/my-study --check-only
+```
+
+The script stops if it finds duplicate or missing identifiers, noninteger/negative counts, mismatched sample names, or an unsupported design. It reorders metadata to match count columns before modelling. Check that the reported sample and gene counts match your study records. A passing file check does not validate experimental design.
+
+**Independent check:** open the metadata and count the biological replicates in each condition. In airway, check that each `cell` appears once as `untrt` and once as `trt`. If a variable is confounded with condition, stop and revisit the design; no script can recover a comparison absent from the data.
+
+If the command fails, read the first error message and correct the named file. Do not edit the source counts to manufacture replication or remove troublesome samples without documenting the reason.
+
+[Next: Run the analysis](04-run-the-analysis.qmd)

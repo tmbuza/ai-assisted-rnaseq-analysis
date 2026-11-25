@@ -1,0 +1,16 @@
+# Run the analysis
+
+## Command
+
+```bash
+Rscript scripts/R/prepare_airway.R
+Rscript scripts/R/run_workflow.R data/airway results/airway
+```
+
+The workflow checks inputs again, saves sample totals, keeps genes with at least 10 counts in at least two samples, fits a DESeq2 negative binomial model, writes the result table, and creates a PCA plot from variance-stabilized values. The model is `~ cell + dex`; the contrast is **treated versus untreated, accounting for cell line**. The reference condition is `untrt`. A positive log2 fold change refers to higher model-estimated expression in `trt`.
+
+These outputs are generated on your computer. If a command fails, do not assume an older table or figure is current; inspect `run-log.txt` and output timestamps.
+
+The model uses raw integer gene counts; its normalization is part of the fitting procedure. The PCA is exploratory. Read `results/airway/run-log.txt` and confirm its design and contrast before interpreting the table.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)
