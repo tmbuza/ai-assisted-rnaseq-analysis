@@ -1,0 +1,12 @@
+input /workspace/scratch/ef7b9a5b00cc/rnaseq/data/airway
+design ~cell + dex
+contrast dex trt untrt
+genes_tested 17199
+padj_below_0.05 4100
+R R version 4.5.3 (2026-03-11)
+DESeq2 1.50.2
+filter counts >= 10 in >= 2 samples
+selected_gene ENSG00000152583
+PCA_top_genes 500
+VST blind=FALSE; donor effects are not removed
+log2FC unshrunken; volcano uses adjusted p-values

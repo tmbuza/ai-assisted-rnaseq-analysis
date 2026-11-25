@@ -8,7 +8,7 @@ Verification traces a saved number to its input. Start with A01, then use the ge
 Rscript scripts/R/verify_sample.R data/synthetic results/synthetic A01
 ```
 
-The original bundled synthetic table has **A01 total 11,981** and **120 detected genes**. Compare those with A01 in `results/synthetic/tables/sample-qc.tsv`. If your input differs, use its actual values and document the version.
+For this bundled version, A01 has **629,417 counts** and **1,935 detected genes**. Compare these with the input and `results/synthetic/tables/sample-qc.tsv`. If your input differs, use its actual values and document the version.
 
 ## 2. Calculate independently
 
@@ -44,5 +44,44 @@ Select one row. Check its sign against `group B A` in `run-log.txt`. Compare cou
 Open `results/synthetic/figures/sample-pca.png`. Describe a visible pattern, the percentages on the axes and any overlap. Link your sentence to the figure and at least one number from a table. A PCA cannot establish which genes are differentially expressed. Because all data here are fictional, do not assign a biological cause.
 
 **Ready to report:** state A01's independently checked values, one selected gene's direction and adjusted p-value, and one limitation.
+
+
+
+## Check the selected-gene figure numerically
+
+In an R console, trace normalized counts back to the raw counts and saved size factors:
+
+```r
+raw <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
+size <- read.delim("results/synthetic/tables/size-factors.tsv")
+gene <- read.delim("results/synthetic/tables/selected-gene-counts.tsv")
+v <- as.numeric(unlist(raw[match(gene$gene_id[1], raw$gene_id), gene$sample_id], use.names = FALSE))
+sf <- size$size_factor[match(gene$sample_id, size$sample_id)]
+stopifnot(isTRUE(all.equal(v / sf, gene$normalized_count, tolerance = 1e-8)))
+print(gene)
+```
+
+This verifies the arithmetic behind the plotted normalized counts, not the model's p-values. Check the selected gene in `differential-expression.tsv` and confirm its direction, standard error and adjusted p-value. Paired normalized-count lines can differ from the overall model estimate because the model combines samples and uncertainty.
+
+## Explain all six figures
+
+Write one evidence-based sentence per figure. Quote a sample total, PCA axis percentage, sample-pair distance, gene effect or adjusted p-value from its supporting table. Note unavailable values and avoid treating visually separated samples as a significance test. For airway, distinguish treatment effects from cell-line variation; for synthetic data, keep all biological claims fictional.
+
+
+## Check the two prespecified examples
+
+The extra panels use `Gene_0002` and `Gene_0003`, chosen in the simulation before DESeq2 was fitted. Inspect their observed counts and model estimates:
+
+```r
+examples <- read.delim("results/synthetic/tables/example-gene-counts.tsv")
+truth <- read.delim("data/synthetic/simulation-truth.tsv")
+result <- read.delim("results/synthetic/tables/differential-expression.tsv")
+ids <- c("Gene_0002", "Gene_0003")
+print(examples[examples$gene_id %in% ids, ])
+print(truth[truth$gene_id %in% ids, c("gene_id", "simulated_log2_effect")])
+print(result[result$gene_id %in% ids, c("gene_id", "log2FoldChange", "lfcSE", "padj")])
+```
+
+A zero generating effect does not force identical observed counts or an estimated fold change of exactly zero. Variable donor responses can differ in direction. Each panel uses its own vertical scale; compare numerical values rather than line steepness across panels. Do not remove an example because its p-value does not match an expectation.
 
 [Next: Write the report](06-export-the-report.qmd)

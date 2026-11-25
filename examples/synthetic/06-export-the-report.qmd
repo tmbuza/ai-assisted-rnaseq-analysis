@@ -14,13 +14,13 @@ format:
 
 Which fictional genes differ between group B and group A?
 
-The input consists of 120 invented gene rows and 12 fictional samples,
-six per group. [Confirm these counts from your files.]
+The input consists of 2,000 invented gene rows and 12 fictional samples,
+six per group, with the same six donors measured in both conditions. [Confirm these counts from your files.]
 
 ## Methods
 
 I checked the count matrix and metadata, then fitted the supplied DESeq2
-model `~ group` with B versus A as the contrast. Genes were kept when they
+model `~ donor + group` with B versus A as the contrast. Genes were kept when they
 had at least 10 counts in at least two samples. [Add R and DESeq2 versions
 from results/synthetic/run-log.txt and the number of genes tested.]
 
@@ -31,12 +31,30 @@ I recalculated both from gene-counts.tsv and [state agreement with sample-qc.tsv
 
 ## Results
 
-![PCA of variance-stabilized fictional gene counts.](../results/synthetic/figures/sample-pca.png)
+![Library sizes.](../results/synthetic/figures/library-sizes.png)
 
-[Describe the group pattern, overlap and PC1/PC2 axis percentages.]
+[Describe the library sizes using checked numbers and state a limitation.]
 
-[Identify one tested gene, its log2 fold-change direction and adjusted p-value;
-state how many genes meet your chosen threshold and how many padj values are NA.]
+![PCA.](../results/synthetic/figures/sample-pca.png)
+
+[Describe the pca using checked numbers and state a limitation.]
+
+![Sample-distance heatmap.](../results/synthetic/figures/sample-distances.png)
+
+[Describe the sample-distance heatmap using checked numbers and state a limitation.]
+
+![MA plot.](../results/synthetic/figures/ma-plot.png)
+
+[Describe the ma plot using checked numbers and state a limitation.]
+
+![Volcano plot.](../results/synthetic/figures/volcano.png)
+
+[Describe the volcano plot using checked numbers and state a limitation.]
+
+![Selected-gene expression.](../results/synthetic/figures/selected-gene.png)
+
+[Compare the selected gene, the prespecified null-effect gene and the variable-response gene. Quote checked model estimates and normalized counts. Distinguish generating parameters from fitted estimates; note that panel scales differ.]
+
 
 ## Interpretation and limits
 
@@ -49,6 +67,7 @@ clinical treatment follows from these results.
 Inputs: data/synthetic/.
 Outputs: results/synthetic/.
 [Record your run date, exact command and source version.]
+
 ````
 
 Render from the main project folder:

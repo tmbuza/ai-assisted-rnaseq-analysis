@@ -1,0 +1,7 @@
+path	md5
+data/synthetic/gene-counts.tsv	3c0b3a2a26a091ed1c6be80097c05b77
+data/synthetic/sample-metadata.tsv	2009df61b248da809d0713356606d155
+scripts/R/run_workflow.R	f9f680a2cda4129b8d6da0bd1d8894e1
+data/synthetic/plot-examples.tsv	594a895e52e5b6da62d5ab45fc6b58cd
+scripts/R/prepare_synthetic.R	09cb373ddf44e0dab729642984adcff6
+data/synthetic/simulation-record.txt	29bcf77e7c132c120ec205ee28f5bf60

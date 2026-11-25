@@ -1,0 +1,4 @@
+path	md5
+data/airway/gene-counts.tsv	211c1826d00034d345a8bd3f45f06733
+data/airway/sample-metadata.tsv	cab3ca5cc70156989394f4d953772a82
+scripts/R/run_workflow.R	525a9cefe4eca27f52a608ea4d73fbfa

@@ -13,3 +13,7 @@
 - [Bioconductor airway dataset](https://bioconductor.org/packages/airway/)
 - [Bioconductor RNA-seq gene-level workflow](https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html)
 - [DESeq2 vignette](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+
+## Figure methods
+
+The plotting and transformation choices follow the [DESeq2 documentation](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html), including sample distances, PCA, MA plots and normalized counts. This guide’s volcano uses adjusted p-values and unshrunken effects. Normalization and transformation do not remove donor effects; donor is handled by the differential expression design.

@@ -6,7 +6,9 @@ From the main project folder, run:
 Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
 ```
 
-Expect `Input checks passed: 12 samples; 120 genes; design ~group`. `--check-only` stops before DESeq2 fitting and does not refresh previous figures or tables.
+Expect `Input checks passed: 12 samples; 2000 genes; design ~donor + group`. The metadata must identify six donors, each with exactly one A and one B sample. The fitted design is `~ donor + group`, with A as the reference.
+
+`--check-only` stops before DESeq2 fitting and does not refresh previous figures or tables.
 
 The script checks required headers, missing and duplicate identifiers, identical sample sets, finite nonnegative integer counts, A and B groups and replication. It aligns metadata rows to the count columns before modelling. It does **not** prove that the study is well designed.
 

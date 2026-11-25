@@ -4,8 +4,8 @@ Two TSV files connect on sample IDs:
 
 | File | Rows | First column | Other columns |
 |---|---|---|---|
-| `data/synthetic/gene-counts.tsv` | 120 fictional genes | `gene_id` | Raw nonnegative integer counts for A01–A06 and B01–B06 |
-| `data/synthetic/sample-metadata.tsv` | 12 samples | `sample_id` | `group`, A or B |
+| `data/synthetic/gene-counts.tsv` | 2,000 fictional genes | `gene_id` | Raw nonnegative integer counts for A01–A06 and B01–B06 |
+| `data/synthetic/sample-metadata.tsv` | 12 samples | `sample_id` | `group` (A or B) and `donor` (D01–D06) |
 
 **Samples are columns in counts and rows in metadata.** Exact spelling and case matter. A zero is a count of zero in this file; a missing value is unknown and needs investigation.
 
@@ -20,7 +20,13 @@ print(head(counts[, 1:4]))
 print(head(metadata))
 ```
 
-Expect 120 genes and six biological samples in each fictional group. Look up `Gene_001` for A01 and B01, but do not infer its model estimate from just those two raw values. Gene-level inference combines replicates, normalization, dispersion and the study design.
+Expect 2,000 genes and six fictional donors, each measured once in A and once in B. Look up `Gene_0001` for A01 and B01, but do not infer its model estimate from just those two raw values. Gene-level inference combines replicates, normalization, dispersion and the study design.
+
+## Why this simulation has more variation
+
+Most genes have no simulated condition effect. Changed genes have different effect sizes and directions. Baseline expression, donor effects and count variability differ across genes. Twenty genes have a zero generating mean; other low-count genes may also fail the analysis filter. A sample’s detected-gene count is not the same as the retained gene count.
+
+The simulation records its rules in `data/synthetic/README.md` and `simulation-record.txt`. `simulation-truth.tsv` contains generating parameters, not DESeq2 estimates. `simulation-samples.tsv` records library multipliers, which are not the estimated size factors. `plot-examples.tsv` prespecifies two gene examples; it is used only for plotting and does not change the fitted model. The seed and rules were fixed before fitting; no discovery count was targeted.
 
 **Record:** gene count, sample count, group sizes, and the first gene count for A01 and B01.
 

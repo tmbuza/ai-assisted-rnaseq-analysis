@@ -22,4 +22,26 @@ Look at `results/airway/figures/sample-pca.png`. Describe where samples cluster,
 
 **Your evidence:** record one verified sample total, one gene with its sign and adjusted p-value (or explain why no gene passes your threshold), and one observation about the PCA. State at least one limitation.
 
+
+
+## Check the selected-gene figure numerically
+
+In an R console, trace normalized counts back to the raw counts and saved size factors:
+
+```r
+raw <- read.delim("data/airway/gene-counts.tsv", check.names = FALSE)
+size <- read.delim("results/airway/tables/size-factors.tsv")
+gene <- read.delim("results/airway/tables/selected-gene-counts.tsv")
+v <- as.numeric(unlist(raw[match(gene$gene_id[1], raw$gene_id), gene$sample_id], use.names = FALSE))
+sf <- size$size_factor[match(gene$sample_id, size$sample_id)]
+stopifnot(isTRUE(all.equal(v / sf, gene$normalized_count, tolerance = 1e-8)))
+print(gene)
+```
+
+This verifies the arithmetic behind the plotted normalized counts, not the model's p-values. Check the selected gene in `differential-expression.tsv` and confirm its direction, standard error and adjusted p-value. Paired normalized-count lines can differ from the overall model estimate because the model combines samples and uncertainty.
+
+## Explain all six figures
+
+Write one evidence-based sentence per figure. Quote a sample total, PCA axis percentage, sample-pair distance, gene effect or adjusted p-value from its supporting table. Note unavailable values and avoid treating visually separated samples as a significance test. For airway, distinguish treatment effects from cell-line variation; for synthetic data, keep all biological claims fictional.
+
 [Next: Write the report](06-export-the-report.qmd)

@@ -1,0 +1,12 @@
+input /Users/tmbmacbookair/Dropbox/OPEN-GUIDES (Selective Sync Conflict)/ai-assisted-rnaseq-analysis/data/synthetic
+design ~donor + group
+contrast group B A
+genes_tested 1839
+padj_below_0.05 210
+R R version 4.6.1 (2026-06-24)
+DESeq2 1.52.0
+filter counts >= 10 in >= 2 samples
+selected_gene Gene_1515
+PCA_top_genes 500
+VST blind=FALSE; donor effects are not removed
+log2FC unshrunken; volcano uses adjusted p-values

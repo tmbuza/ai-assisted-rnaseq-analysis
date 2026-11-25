@@ -20,6 +20,33 @@ Give the data source, sample counts, gene-count source, model design, contrast, 
 
 Include the PCA figure, a small table or cited values from the differential-expression output, and a checked sample total. Identify the contrast direction and any missing/NA values.
 
+
+## Figures
+
+![Library sizes.](../results/airway/figures/library-sizes.png)
+
+[Describe the library sizes using checked numbers and state a limitation.]
+
+![PCA.](../results/airway/figures/sample-pca.png)
+
+[Describe the pca using checked numbers and state a limitation.]
+
+![Sample-distance heatmap.](../results/airway/figures/sample-distances.png)
+
+[Describe the sample-distance heatmap using checked numbers and state a limitation.]
+
+![MA plot.](../results/airway/figures/ma-plot.png)
+
+[Describe the ma plot using checked numbers and state a limitation.]
+
+![Volcano plot.](../results/airway/figures/volcano.png)
+
+[Describe the volcano plot using checked numbers and state a limitation.]
+
+![Selected-gene expression.](../results/airway/figures/selected-gene.png)
+
+[Describe the selected-gene expression using checked numbers and state a limitation.]
+
 # Interpretation and limitations
 
 Separate observed patterns from tested differential expression. Note design constraints, sample size and what this analysis cannot establish.
@@ -35,6 +62,6 @@ After saving the file, render it from the main project folder:
 quarto render reports/airway-report.qmd --to html
 ```
 
-The result appears alongside the QMD unless you specify another output directory. If results have not been generated, label the report as **pending** rather than inventing figures or counts. Cite the [airway package](https://bioconductor.org/packages/airway/) and original paper if using that case study.
+Quarto prints the rendered output location; open that HTML file. If results have not been generated, label the report as **pending** rather than inventing figures or counts. Cite the [airway package](https://bioconductor.org/packages/airway/) and original paper if using that case study.
 
 **Final check:** can a reader trace every numerical statement to a generated table, figure or independent check? Does the conclusion match the design and limitations?

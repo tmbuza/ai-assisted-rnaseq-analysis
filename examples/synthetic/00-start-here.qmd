@@ -1,6 +1,6 @@
 # Synthetic practice: learn the workflow
 
-Start after [Required setup](../../00-setup.qmd). The 120 fictional genes and groups A and B were constructed for teaching; do not give them biological names or treat their statistical signals as findings about an organism.
+Start after [Required setup](../../00-setup.qmd). The 2,000 fictional genes and groups A and B were constructed for teaching; do not give them biological names or treat their statistical signals as findings about an organism.
 
 ::: {.callout-note icon=false}
 ## Our question
@@ -8,14 +8,16 @@ Start after [Required setup](../../00-setup.qmd). The 120 fictional genes and gr
 Which fictional genes have different model-estimated counts in group B compared with group A, and how can we verify and explain the outputs?
 :::
 
+Each of six fictional donors has one A sample and one B sample. The model accounts for donor before estimating the B-versus-A effect, preparing you for airway’s paired cell-line design.
+
 By the end you will match 12 sample IDs across two files, check the design and counts, run the supplied R workflow, verify A01 independently, explain the sign of a fold change, and write a short report.
 
 | Lesson | Task |
 |---|---|
-| [Preview](01-see-the-result.qmd) | Learn what the PCA, count summary and gene table represent |
+| [Preview](01-see-the-result.qmd) | Explore six prepared figures and their supporting tables |
 | [Meet](02-meet-the-data.qmd) | Inspect samples, gene counts and group labels |
 | [Check](03-check-the-inputs.qmd) | Validate format, IDs, replicates and contrast |
-| [Run](04-run-the-analysis.qmd) | Save the DESeq2 table, PCA and run record |
+| [Run](04-run-the-analysis.qmd) | Reproduce all six figures, tables and run record |
 | [Verify](05-verify-and-explain.qmd) | Independently calculate A01's count summary |
 | [Write](06-export-the-report.qmd) | Report evidence, interpretation and limits |
 

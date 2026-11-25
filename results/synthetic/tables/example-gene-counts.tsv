@@ -1,0 +1,37 @@
+gene_id	sample_id	normalized_count	condition	subject	example
+Gene_1515	A01	3397.67882285246	A	D01	Selected after analysis
+Gene_1515	A02	2415.00233301511	A	D02	Selected after analysis
+Gene_1515	A03	5894.19420569396	A	D03	Selected after analysis
+Gene_1515	A04	7853.23168058276	A	D04	Selected after analysis
+Gene_1515	A05	1513.52859957863	A	D05	Selected after analysis
+Gene_1515	A06	1923.2395705891	A	D06	Selected after analysis
+Gene_1515	B01	15081.1307086755	B	D01	Selected after analysis
+Gene_1515	B02	15827.9836112864	B	D02	Selected after analysis
+Gene_1515	B03	21072.5588209167	B	D03	Selected after analysis
+Gene_1515	B04	43354.3806121625	B	D04	Selected after analysis
+Gene_1515	B05	7305.20618046712	B	D05	Selected after analysis
+Gene_1515	B06	14494.0168625132	B	D06	Selected after analysis
+Gene_0002	A01	810.015403108433	A	D01	No simulated condition effect
+Gene_0002	A02	1538.12648590844	A	D02	No simulated condition effect
+Gene_0002	A03	1416.38967860662	A	D03	No simulated condition effect
+Gene_0002	A04	457.279697446664	A	D04	No simulated condition effect
+Gene_0002	A05	1095.74874210275	A	D05	No simulated condition effect
+Gene_0002	A06	607.686458480355	A	D06	No simulated condition effect
+Gene_0002	B01	1098.66840522687	B	D01	No simulated condition effect
+Gene_0002	B02	2089.28472312504	B	D02	No simulated condition effect
+Gene_0002	B03	941.836091879294	B	D03	No simulated condition effect
+Gene_0002	B04	615.161122638976	B	D04	No simulated condition effect
+Gene_0002	B05	1254.87543501094	B	D05	No simulated condition effect
+Gene_0002	B06	462.584693482233	B	D06	No simulated condition effect
+Gene_0003	A01	174.064223679816	A	D01	Variable donor response
+Gene_0003	A02	802.125774894306	A	D02	Variable donor response
+Gene_0003	A03	826.826462130771	A	D03	Variable donor response
+Gene_0003	A04	355.917950909368	A	D04	Variable donor response
+Gene_0003	A05	455.535993907884	A	D05	Variable donor response
+Gene_0003	A06	561.449445335111	A	D06	Variable donor response
+Gene_0003	B01	109.542270831335	B	D01	Variable donor response
+Gene_0003	B02	1881.95112464698	B	D02	Variable donor response
+Gene_0003	B03	383.559335968234	B	D03	Variable donor response
+Gene_0003	B04	1608.17666618708	B	D04	Variable donor response
+Gene_0003	B05	354.381131432274	B	D05	Variable donor response
+Gene_0003	B06	947.023781932131	B	D06	Variable donor response

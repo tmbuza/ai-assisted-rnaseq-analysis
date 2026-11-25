@@ -1,0 +1,7 @@
+Simulation version: 2
+Seed: 20261126
+2000 genes; 6 paired donors; 12 samples
+20 genes have zero generating mean
+Rules and seed fixed before fitting DESeq2; no target discovery count
+Truth tables describe generating parameters, not fitted estimates
+Library multipliers are not DESeq2 estimated size factors

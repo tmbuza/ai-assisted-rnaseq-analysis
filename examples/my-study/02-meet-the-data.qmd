@@ -7,7 +7,7 @@
 | `data/my-study/gene-counts.tsv` | `gene_id` (one unique gene per row) | One nonnegative integer count column per sample |
 | `data/my-study/sample-metadata.tsv` | `sample_id` (one unique sample per row) | Design variables, including a condition column |
 
-The current script accepts `group` with A/B for a simple replicated comparison, or `cell` plus `dex` with the airway paired layout. Your study may require a different design, level names, covariates or contrast: review and edit the script before inference. Do not rename real conditions A/B merely to force them through this template.
+The current script accepts `group` with A/B for an independent replicated comparison, optionally with `donor` for complete A/B pairs, or `cell` plus `dex` with the airway paired layout. Your study may require a different design, level names, covariates or contrast: review and edit the script before inference. Do not rename real conditions A/B merely to force them through this template.
 
 To inspect just the header and first few rows in R:
 

@@ -22,7 +22,7 @@ Start with a question about differential gene expression. Learn a complete workf
 
 | Dataset | Input | Main learning goal |
 |---|---|---|
-| [Synthetic practice](examples/synthetic/00-start-here.qmd) | Fictional integer gene counts, six samples per group | Learn checks, DESeq2 outputs, and independent sample verification |
+| [Synthetic practice](examples/synthetic/00-start-here.qmd) | Fictional integer gene counts, six paired donors in two conditions | Learn checks, DESeq2 outputs, and independent sample verification |
 | [Airway case study](examples/airway/00-start-here.qmd) | Gene counts from four cell lines measured untreated and treated | Include cell line in the design and interpret a real experiment |
 | [Your own study](examples/my-study/00-start-here.qmd) | Your count matrix and study metadata | Check design and adapt the workflow responsibly |
 

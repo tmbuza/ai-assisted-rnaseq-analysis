@@ -8,19 +8,44 @@ This page takes you from the downloaded project to your first successful RNA-seq
 Open the project, create its `renv` environment, install the analysis packages and check the synthetic count files.
 :::
 
-## 1. Install software and open the project
+## 1. Gather the software
 
 Install [R](https://cran.r-project.org/), [Quarto](https://quarto.org/docs/get-started/) and an editor such as [VS Code](https://code.visualstudio.com/) or RStudio. Reopen the terminal after installing R so it can find `Rscript`.
 
-Download and extract the RNA-seq project ZIP. Do **not** work inside the compressed ZIP. In VS Code choose **File → Open Folder** and open the extracted `ai-assisted-rnaseq-analysis` folder. You should see `_quarto.yml`, `data/`, `scripts/` and `examples/` directly inside it. Choose **Terminal → New Terminal**. Run the guide commands from this main folder.
+You can run the R analysis before installing Quarto. Quarto is needed when you want to preview or render the QMD guide and reports.
+
+## 2. Download and open the project
+
+1. Open the [AI-Assisted RNA-Seq Analysis repository](https://github.com/tmbuza/ai-assisted-rnaseq-analysis).
+2. Select the green **Code** button, then **Download ZIP**.
+3. Extract the downloaded ZIP. The folder is usually named `ai-assisted-rnaseq-analysis-main`. Do **not** work inside the compressed ZIP.
+4. In VS Code, choose **File → Open Folder** and select the extracted folder.
+5. Check the file list: `_quarto.yml`, `data/`, `scripts/` and `examples/` should appear directly inside it.
+6. Choose **Terminal → New Terminal**.
+
+This is the **main project folder**. Run all guide commands here. You can keep the downloaded folder name; no renaming is required. If extraction created an extra outer folder, open the inner folder containing `_quarto.yml`.
+
+Check the folder and R installation:
+
+### macOS or Linux terminal
 
 ```bash
+pwd
+ls
 Rscript --version
 ```
 
-On macOS/Linux use `pwd` and `ls` to check your location; on Windows PowerShell use `Get-Location` and `Get-ChildItem`.
+### Windows PowerShell
 
-## 2. Create the R package environment
+```powershell
+Get-Location
+Get-ChildItem
+Rscript --version
+```
+
+If the expected files are missing, reopen the correct folder and a new terminal before continuing. If `Rscript` is missing, install R or reopen the terminal after installation.
+
+## 3. Create the R package environment
 
 `renv` keeps packages in a project-specific library. The commands set a CRAN mirror explicitly so R does not stop at “Please select a CRAN mirror for use in this session”. Open an **R console** with the main project folder as its working directory. Confirm with `getwd()` before proceeding. Follow only the route that applies to your files.
 
@@ -32,6 +57,8 @@ Install `renv` if needed and restore its recorded package versions:
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 install.packages("renv")
 renv::restore()
+stopifnot(requireNamespace("DESeq2", quietly = TRUE),
+          requireNamespace("ggplot2", quietly = TRUE))
 renv::status()
 ```
 
@@ -45,10 +72,30 @@ install.packages("renv")
 renv::init(bare = TRUE)
 renv::install(c("BiocManager", "ggplot2"))
 BiocManager::install(c("DESeq2", "airway", "SummarizedExperiment"), ask = FALSE)
+stopifnot(
+  requireNamespace("DESeq2", quietly = TRUE),
+  requireNamespace("airway", quietly = TRUE),
+  requireNamespace("SummarizedExperiment", quietly = TRUE),
+  requireNamespace("ggplot2", quietly = TRUE)
+)
 renv::status()
 ```
 
-`init()` creates `.Rprofile`, `renv/activate.R` and a local project library. If R restarts, reopen the project and continue in its environment. Run the analysis successfully **before** recording a reusable environment:
+`init()` creates `.Rprofile`, `renv/activate.R` and a local project library. If R restarts, reopen the project and continue in its environment. The `stopifnot()` check must finish without an error; it confirms the four packages are available **in this R session**. If `DESeq2` is missing, run `BiocManager::install("DESeq2", ask = FALSE)` in the activated project and inspect any installation error before trying again.
+
+**If `renv::status()` lists `airway`, `DESeq2` or `SummarizedExperiment` as missing:** these are Bioconductor packages. Install them with `BiocManager::install(c("airway", "DESeq2", "SummarizedExperiment"), ask = FALSE)` or use their explicit `renv` sources:
+
+```r
+renv::install(c("bioc::airway", "bioc::DESeq2", "bioc::SummarizedExperiment"))
+stopifnot(requireNamespace("airway", quietly = TRUE),
+          requireNamespace("DESeq2", quietly = TRUE),
+          requireNamespace("SummarizedExperiment", quietly = TRUE))
+renv::status()
+```
+
+Do not use `renv::install("airway")` without the `bioc::` prefix: it may search the CRAN repository and report that `airway` is unavailable. If an explicit Bioconductor install also fails, keep the **download or installation error above the final message** for diagnosis. Do not snapshot a project while required packages remain missing.
+
+Once the analysis has run successfully, record the installed versions in the project lockfile:
 
 ```r
 renv::snapshot()
@@ -56,11 +103,11 @@ renv::status()
 q(save = "no")
 ```
 
-When sharing the project, include `renv.lock`, `.Rprofile` and `renv/activate.R`; leave out the machine-specific `renv/library/`. The starter ZIP contains no lockfile because the R analysis has not yet been executed and validated here. `renv` should activate when R starts in the initialized project. `renv::status()` checks its state.
+When sharing the project, include `renv.lock`, `.Rprofile` and `renv/activate.R`; leave out the machine-specific `renv/library/`. The starter ZIP contains no lockfile because a portable project `renv` lockfile has not been generated. The bundled previews have their own tested run logs and session information. `renv` should activate when R starts in the initialized project. `renv::status()` checks its state.
 
 Run these expressions at an **R prompt**, not in Bash or PowerShell. To exit an R console, use `q(save = "no")` before entering `Rscript` commands in the terminal.
 
-## 3. Check the synthetic inputs
+## 4. Check the synthetic inputs
 
 From the main project folder:
 
@@ -68,7 +115,15 @@ From the main project folder:
 Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
 ```
 
-Expect **12 samples**, **120 genes** and design `~group`. This checks file structure, matching sample IDs, nonnegative integer counts and basic replication. It does not run DESeq2 or refresh old results.
+Expect **12 samples**, **2,000 genes** and design `~donor + group`. This checks file structure, matching sample IDs, nonnegative integer counts and basic replication. It does not run DESeq2 or refresh old results.
+
+The full run needs `DESeq2` and `ggplot2`, while `--check-only` stops before loading them. To confirm that the **terminal** uses the same project library as the R console, run:
+
+```bash
+Rscript -e 'cat("DESeq2 available:", requireNamespace("DESeq2", quietly = TRUE), "\n"); print(.libPaths())'
+```
+
+It should print `DESeq2 available: TRUE`. If the console check passes but this says `FALSE`, confirm you are in the main project folder and that its `.Rprofile` and `renv/activate.R` exist. Restart the terminal there and repeat the check. On Windows PowerShell, use the same single-quoted command.
 
 ::: {.callout-tip}
 ## Setup checkpoint
@@ -76,7 +131,7 @@ Expect **12 samples**, **120 genes** and design `~group`. This checks file struc
 Continue when the packages load in the project environment and the input check passes. If installation fails, resolve the complete error before running the analysis.
 :::
 
-## 4. Know where things live
+## 5. Know where things live
 
 | Folder | Purpose |
 |---|---|
@@ -90,7 +145,7 @@ Continue when the packages load in the project environment and the input check p
 
 Paths such as `data/synthetic/` are relative to the main folder. If a file cannot be found, check your terminal location before changing the command.
 
-## 5. Preview or render
+## 6. Preview or render
 
 ```bash
 quarto preview

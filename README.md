@@ -11,3 +11,9 @@ This guide starts from count matrices, not sequencing reads. Synthetic data are 
 ## Reproducible R environment
 
 This starter has no tested `renv.lock`. In the main folder, initialize `renv` and install packages as described in `00-setup.qmd`. After the workflow runs successfully, call `renv::snapshot()` and retain `renv.lock`, `.Rprofile` and `renv/activate.R` in the repository. A learner receiving that validated lockfile can use `renv::restore()`. Do not commit `renv/library/`.
+
+## Prepared previews
+
+Both the synthetic and airway examples include six saved figures and supporting tables, so learners can inspect the results before practising. The same `run_workflow.R` reproduces those outputs. Synthetic data have six paired donors and use `~ donor + group`; airway uses `~ cell + dex`. The earlier independent synthetic inputs and their expected totals are replaced.
+
+See `PREVIEW-UPDATE.md` for integration and maintainer commands. The results record the actual software versions, input hashes and analysis design. This update does not supply a project `renv.lock`; initialize the project as described in setup and record a lockfile after confirming your local run.

@@ -1,16 +1,57 @@
 # Run the analysis
 
-## Command
+From the main project folder, run:
 
 ```bash
-Rscript scripts/R/prepare_airway.R
 Rscript scripts/R/run_workflow.R data/airway results/airway
 ```
 
-The workflow checks inputs again, saves sample totals, keeps genes with at least 10 counts in at least two samples, fits a DESeq2 negative binomial model, writes the result table, and creates a PCA plot from variance-stabilized values. The model is `~ cell + dex`; the contrast is **treated versus untreated, accounting for cell line**. The reference condition is `untrt`. A positive log2 fold change refers to higher model-estimated expression in `trt`.
+This repeats the input checks, fits DESeq2 and reproduces the figures you previewed. Keep bundled inputs unchanged for the first run. Rerunning replaces the named outputs; resolve any error before interpreting a partially refreshed folder.
 
-These outputs are generated on your computer. If a command fails, do not assume an older table or figure is current; inspect `run-log.txt` and output timestamps.
+## Understand the analysis
 
-The model uses raw integer gene counts; its normalization is part of the fitting procedure. The PCA is exploratory. Read `results/airway/run-log.txt` and confirm its design and contrast before interpreting the table.
+| Step | What the script does | What to check |
+|---|---|---|
+| Sample summaries | Sums supplied raw counts and counts nonzero genes | These are not overall FASTQ or alignment quality metrics |
+| Filtering | Keeps genes with counts ≥10 in at least two samples | Filtered and original gene counts can differ |
+| Model | Fits `~ cell + dex` | Contrast is trt versus untrt, accounting for cell line; positive effects indicate the first condition |
+| Inference | Estimates size factors, dispersions and condition effects; adjusts p-values | Inspect `lfcSE`, `pvalue`, `padj` and unavailable values |
+| Exploration | Variance-stabilizes retained counts for PCA and distances | These values are not used as differential testing inputs; donor effects remain |
+| Gene display | Plots normalized counts for the gene with lowest available adjusted p-value | The gene is selected after fitting for illustration, not independent confirmation |
+
+## Find the six figures
+
+All filenames below are inside `results/airway/figures/`.
+
+| File | Inspect |
+|---|---|
+| `library-sizes.png` | Raw count totals for every sample |
+| `sample-pca.png` | Condition colours, donor shapes, pair connections and axis percentages |
+| `sample-distances.png` | Distances between transformed sample profiles |
+| `ma-plot.png` | Average expression versus unshrunken log2 fold change |
+| `volcano.png` | Unshrunken log2 fold change versus -log10(adjusted p-value) |
+| `selected-gene.png` | Normalized counts across paired conditions |
+
+MA and volcano plots use the original, unshrunken log2 fold-change estimates. Inspect their uncertainty in `lfcSE`. The volcano omits missing adjusted p-values and floors zero values only for plotting. Colour uses `padj < 0.05` without an effect-size cutoff.
+
+## Find the supporting numbers
+
+All TSVs below are inside `results/airway/tables/`.
+
+| File | Contents |
+|---|---|
+| `sample-qc.tsv` | Raw total and detected-gene count for each sample |
+| `differential-expression.tsv` | Model estimates, standard errors, p-values and adjusted p-values |
+| `normalized-counts.tsv` | Retained raw counts divided by DESeq2 size factors |
+| `size-factors.tsv` | Size factor used for each sample |
+| `transformed-counts.tsv` | Variance-stabilized retained counts |
+| `pca-scores.tsv`, `pca-variance.tsv` | Sample coordinates and percentages explained |
+| `sample-distances.tsv` | Numerical distances behind the heatmap |
+| `selected-gene-counts.tsv` | Gene ID and normalized values behind the paired plot |
+| `input-script-hashes.tsv` | Hashes identifying the exact inputs and workflow script |
+
+`run-log.txt` records the design, contrast, filtering, selected gene and software versions. `session-info.txt` records the R session. Compare these records before investigating differences from bundled previews; software versions may affect final numerical values.
+
+**Checkpoint:** open all six figures, locate the selected gene in the DE table and confirm the contrast in the run log. Return to the preview page and explain what each figure shows using your own generated outputs.
 
 [Next: Verify and explain](05-verify-and-explain.qmd)
