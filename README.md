@@ -1,19 +1,30 @@
 # AI-Assisted RNA-Seq Analysis with R
 
-A hands-on Quarto book: fictional counts → Bioconductor airway experiment → your study. Each example follows Define → Preview → Meet → Check → Run → Verify and Explain → Write.
+A Quarto guide from gene-level count data to results you can explain and defend: **Define → Preview → Meet → Check → Run → Verify and Explain → Write**.
 
-Open the folder containing `_quarto.yml`. Follow `00-setup.qmd` to initialize `renv` and install the R/Bioconductor packages; begin with `Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only`. Then run the synthetic and airway analyses as the chapters direct. The book itself has execution disabled and does not create analysis outputs during rendering.
+Begin with a fictional paired experiment, repeat the process with the real Bioconductor airway data, then adapt the supported workflow to your study. This practical starts from count matrices, not FASTQ reads.
 
-**Provenance:** Airway data are loaded from the Bioconductor `airway` package, based on Himes et al. 2014, DOI 10.1371/journal.pone.0099625. Source: https://bioconductor.org/packages/airway/ . Statistical design guidance: https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html .
+## Start here
 
-This guide starts from count matrices, not sequencing reads. Synthetic data are fictional and have no biological interpretation. For your study, review the design and contrast before running or interpreting results.
+Download the complete repository using Code → Download ZIP, extract it and open the inner project folder. Follow [00-setup.qmd](00-setup.qmd). Learners restore a supplied, tested renv.lock and activation files using:
 
-## Reproducible R environment
+```bash
+Rscript scripts/R/setup.R
+Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
+```
 
-This starter has no tested `renv.lock`. In the main folder, initialize `renv` and install packages as described in `00-setup.qmd`. After the workflow runs successfully, call `renv::snapshot()` and retain `renv.lock`, `.Rprofile` and `renv/activate.R` in the repository. A learner receiving that validated lockfile can use `renv::restore()`. Do not commit `renv/library/`.
+If the project environment has not been supplied, the setup helper stops clearly. It does not create an untested lockfile for a learner. Maintainer-only environment creation is explained in the appendix.
 
-## Prepared previews
+## The worked paths
 
-Both the synthetic and airway examples include six saved figures and supporting tables, so learners can inspect the results before practising. The same `run_workflow.R` reproduces those outputs. Synthetic data have six paired donors and use `~ donor + group`; airway uses `~ cell + dex`. The earlier independent synthetic inputs and their expected totals are replaced.
+- Synthetic v2: 2,000 genes, six paired donors and 12 samples; seed 20261126; formula `~ donor + group`, B relative to A.
+- Airway: eight samples from four paired cell lines; formula `~ cell + dex`, trt relative to untrt. Source: airway package and Himes et al. (2014), DOI 10.1371/journal.pone.0099625.
+- My study: review the supported design interface, source and contrast before inference. The script does not automatically fit arbitrary covariates or studies.
 
-See `PREVIEW-UPDATE.md` for integration and maintainer commands. The results record the actual software versions, input hashes and analysis design. This update does not supply a project `renv.lock`; initialize the project as described in setup and record a lockfile after confirming your local run.
+## Outputs and reporting
+
+Six figures and their supporting TSVs are written to `results/DATASET/figures/` and `results/DATASET/tables/`. Run logs and session information identify the analysis. See [01-run-the-workflow.qmd](01-run-the-workflow.qmd) for the output map.
+
+Use `Rscript scripts/R/create_report.R synthetic` to create a report starter; use airway or my-study for other paths. The helper preserves existing reports and isolates rendering inside ignored reports/. Templates are tracked under templates/. See [02-write-the-report.qmd](02-write-the-report.qmd).
+
+Quarto rendering displays saved results; it does not fit DESeq2. Keep scripts, inputs, environment and run provenance aligned. A successful raw sample verification does not validate the full statistical model.

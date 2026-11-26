@@ -1,58 +1,37 @@
-# Run the analysis
+# Run: Synthetic practice
 
-From the main project folder, run:
+## Reproduce the outputs
 
 ```bash
 Rscript scripts/R/run_workflow.R data/synthetic results/synthetic
 ```
 
-This repeats the input checks, fits DESeq2 and reproduces the figures you previewed. Keep bundled inputs unchanged for the first run. Rerunning replaces the named outputs; resolve any error before interpreting a partially refreshed folder.
+Run from the main project folder and stop if an error occurs. Named outputs are overwritten on rerun; an interrupted run can leave a mixture of older and newer files. Interpret only a completed run.
 
-## Understand the analysis
+## Follow the three numerical representations
 
-| Step | What the script does | What to check |
-|---|---|---|
-| Sample summaries | Sums supplied raw counts and counts nonzero genes | These are not overall FASTQ or alignment quality metrics |
-| Filtering | Keeps genes with counts ≥10 in at least two samples | Filtered and original gene counts can differ |
-| Model | Fits `~ donor + group` | Contrast is B versus A, accounting for donor; positive effects indicate the first condition |
-| Inference | Estimates size factors, dispersions and condition effects; adjusts p-values | Inspect `lfcSE`, `pvalue`, `padj` and unavailable values |
-| Exploration | Variance-stabilizes retained counts for PCA and distances | These values are not used as differential testing inputs; donor effects remain |
-| Gene display | Plots the post-analysis selected gene alongside two prespecified examples | The first gene is selected after fitting; the other examples are fixed before analysis. Neither display independently confirms p-values |
-
-## Find the six figures
-
-All filenames below are inside `results/synthetic/figures/`.
-
-| File | Inspect |
+| Representation | Where it is used |
 |---|---|
-| `library-sizes.png` | Raw count totals for every sample |
-| `sample-pca.png` | Condition colours, donor shapes, pair connections and axis percentages |
-| `sample-distances.png` | Distances between transformed sample profiles |
-| `ma-plot.png` | Average expression versus unshrunken log2 fold change |
-| `volcano.png` | Unshrunken log2 fold change versus -log10(adjusted p-value) |
-| `selected-gene.png` | Three normalized-count panels across paired conditions |
+| Raw integer counts | Input summaries and the DESeq2 count model |
+| Counts divided by estimated size factors | Normalized-count tables and gene-expression panels |
+| Variance-stabilized retained counts | PCA and sample distances |
 
-MA and volcano plots use the original, unshrunken log2 fold-change estimates. Inspect their uncertainty in `lfcSE`. The volcano omits missing adjusted p-values and floors zero values only for plotting. Colour uses `padj < 0.05` without an effect-size cutoff.
+DESeq2 estimates size factors and dispersions while fitting `~ donor + group`; it does not test the variance-stabilized matrix. Normalized counts are not counts per million or the single-cell guide's counts per 10,000.
 
-## Find the supporting numbers
+The filter keeps genes with counts ≥10 in at least two samples. The supplied reference run retained **1,839 of 2,000 genes**. Confirm your own result-row count. The raw sample-QC table uses all input genes, so a sample's detected-gene count can exceed the number of retained genes.
 
-All TSVs below are inside `results/synthetic/tables/`.
+`results()` uses contrast **B versus A** and `alpha = 0.05`. The table includes unshrunken log2 fold changes, standard errors, p-values and adjusted p-values. Plot colour uses `padj < 0.05`; there is no minimum effect-size rule. A missing adjusted p-value is not a discovery or a numerical zero.
 
-| File | Contents |
-|---|---|
-| `sample-qc.tsv` | Raw total and detected-gene count for each sample |
-| `differential-expression.tsv` | Model estimates, standard errors, p-values and adjusted p-values |
-| `normalized-counts.tsv` | Retained raw counts divided by DESeq2 size factors |
-| `size-factors.tsv` | Size factor used for each sample |
-| `transformed-counts.tsv` | Variance-stabilized retained counts |
-| `pca-scores.tsv`, `pca-variance.tsv` | Sample coordinates and percentages explained |
-| `sample-distances.tsv` | Numerical distances behind the heatmap |
-| `selected-gene-counts.tsv` | Gene ID and normalized values for the post-analysis selected gene |
-| `example-gene-counts.tsv` | Values and example labels for all three expression panels |
-| `input-script-hashes.tsv` | Hashes identifying the exact inputs and workflow script |
+## Understand the visualizations
 
-`run-log.txt` records the design, contrast, filtering, selected gene and software versions. `session-info.txt` records the R session. Compare these records before investigating differences from bundled previews; software versions may affect final numerical values.
+PCA uses up to 500 most variable variance-stabilized genes. The distance heatmap uses all retained transformed genes. The transformation uses `blind = FALSE`, but does not subtract donor effects. Modelling donor in differential expression is not the same as removing donor structure from PCA.
 
-**Checkpoint:** open all six figures, locate the selected gene in the DE table and confirm the contrast in the run log. Return to the preview page and explain what each figure shows using your own generated outputs.
+The selected-gene display supplements a post-analysis choice with Gene_0002 and Gene_0003, fixed in the simulation before fitting. Panels have separate y-scales; compare numbers rather than steepness across panels.
+
+## Your task
+
+Read `results/synthetic/run-log.txt` and confirm `group B A`, the filter and retained gene count. Locate the corresponding figure tables using [the output map](../../01-run-the-workflow.qmd). Record input, retained and available-adjusted-p-value gene counts separately.
+
+**Before moving on:** all six figures exist and each interpretation can be traced to the current run.
 
 [Next: Verify and explain](05-verify-and-explain.qmd)

@@ -28,4 +28,8 @@ Start with a question about differential gene expression. Learn a complete workf
 
 This guide starts with **gene-level count tables**. It does not process FASTQ reads, align sequences, or quantify transcripts. Differential expression describes an association with the specified contrast under the chosen design; it does not alone establish causation outside the experiment or clinical benefit.
 
+Use [the shared workflow and output map](01-run-the-workflow.qmd) to locate evidence, and [Write the report](02-write-the-report.qmd) when you are ready to explain it. The example filenames remain unchanged, with titles following the same seven learning steps.
+
+**Human → AI → Human:** make your own observation or calculation, ask AI to explain or critique it using supplied evidence, then compare its response with your actual files and design.
+
 [Next: Set up the workspace](00-setup.qmd)

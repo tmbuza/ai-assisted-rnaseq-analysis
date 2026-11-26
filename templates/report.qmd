@@ -1,0 +1,62 @@
+---
+title: "__LABEL__"
+format:
+  html:
+    embed-resources: true
+---
+
+## Question and design
+
+[State numerator, reference, independent biological units and any pairing. Keep synthetic labels fictional.]
+
+## Data and methods
+
+[Record source, count-generation boundary, dimensions, annotation/identifiers, prefilter, model, contrast and software versions. Use results/__DATASET__/run-log.txt and session-info.txt.]
+
+## Results
+
+[Separate input gene count, retained result rows, available adjusted p-values and genes meeting your stated rule. Provide one gene's log2 fold change, lfcSE and padj with the contrast direction. Supporting tables are in results/__DATASET__/tables/.]
+
+![Raw supplied count totals](../results/__DATASET__/figures/library-sizes.png)
+
+[One evidence-based observation and a limit.]
+
+![Sample PCA](../results/__DATASET__/figures/sample-pca.png)
+
+[State percentages and distinguish condition from pairing/technical structure.]
+
+![Sample distances](../results/__DATASET__/figures/sample-distances.png)
+
+[Describe similarity using the saved matrix; do not call clustering a significance test.]
+
+![MA plot](../results/__DATASET__/figures/ma-plot.png)
+
+[Explain the unshrunken effects and adjusted-evidence colours.]
+
+![Volcano plot](../results/__DATASET__/figures/volcano.png)
+
+[Note omitted missing adjusted p-values and lack of a minimum effect-size rule.]
+
+![Illustrative selected-gene counts](../results/__DATASET__/figures/selected-gene.png)
+
+[State how the gene was selected and why this display is not independent validation.]
+
+## Independent verification
+
+| Sample/gene | Quantity | Manual value | Saved value | Verdict |
+|---|---|---:|---:|---|
+| [ID] | [raw total/detected genes/normalized count] | [value] | [value] | [result] |
+
+[State verifier outcome and what the check does not validate.]
+
+## Interpretation and limitations
+
+[Separate observations, fitted-test evidence and proposed biology. Note confounding, replication, quality or annotation limits.]
+
+## AI use
+
+[State assistance received, evidence supplied and how the response was checked.]
+
+## Reproduce and next step
+
+[Record preparation, analysis and verification commands for this dataset and one justified next action.]

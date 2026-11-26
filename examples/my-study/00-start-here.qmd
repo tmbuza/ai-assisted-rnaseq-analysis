@@ -1,17 +1,35 @@
-# Start here
+# Define: Your own study
 
-## The question
+## Write the comparison before running code
 
-**Example:** your research question. **Contrast:** your stated contrast.
+State one question about gene-level counts across two conditions. Identify the organism, tissue, biological source, sample collection and how counts were generated. Decide which condition is the numerator and which is the reference.
 
-Supply `gene-counts.tsv` and `sample-metadata.tsv` using the formats below, then review your design with a mentor before running inference.
+A useful planning sentence is:
 
-The input is a matrix of raw integer gene counts and a sample metadata table. Each column represents one biological sample; each row represents one gene. This is a gene-level analysis, starting after sequencing and count generation.
+> I will compare [numerator] with [reference] in [sample population], accounting for [supported pairing/design terms].
+
+A sample is a measurement unit; a donor or experimental source may contribute several samples. Technical replicates, matched repeated samples and independent biological replicates play different roles. Do not infer independence merely from different column names.
+
+## Check that this template matches your study
+
+The supplied script supports two-condition A/B comparisons, with or without complete donor pairs, and the specific paired airway-style `cell`/`dex` layout. It does not automatically choose a model for arbitrary condition names, time courses, incomplete pairs, nested factors or interactions.
+
+If the study requires another design, pause for an explicit, reviewed adaptation of the script. Adding a `batch` column does not make the current model adjust for batch. Renaming conditions to pass a checker does not solve confounding or missing replication.
 
 ## Your task
 
-Write a one-sentence question that names the two conditions, the unit measured, and any matched samples or design terms. Record what might influence interpretation. For airway, four cell lines are measured under both treatment conditions; the model accounts for cell line. For synthetic data, group labels have no biological meaning.
+Write a short analysis brief:
 
-Proceed in order. Each page shows a command or checkpoint and explains how to inspect the result.
+1. The biological question and count source.
+2. The true independent sources and any pairing.
+3. The numerator, reference and intended model terms.
+4. Potential confounding and missing design information.
+5. One conclusion this analysis cannot establish.
 
-[Next: See the result](01-see-the-result.qmd)
+If you deliberately encode real conditions as A/B, retain a documented mapping to their original names and verify the contrast throughout the report. Do not hide the original meanings or treat encoding as validation of the design.
+
+**Optional AI prompt:** “Review my question, design and metadata summary. Identify unsupported assumptions and whether this existing script matches the study; do not invent replicates or covariates.”
+
+**Before moving on:** you can justify the comparison independently of whether it produces significant genes.
+
+[Next: Preview the outputs](01-see-the-result.qmd)

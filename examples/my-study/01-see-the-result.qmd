@@ -1,16 +1,32 @@
-# See the result
+# Preview: Your own study
 
-## Preview your outputs
+## Know what the outputs can answer
 
-After running the analysis, inspect:
+Your figures appear only after you supply inputs and complete analysis. The goal is a checked result, not a desired number of significant genes or clean condition separation.
 
-1. `results/my-study/tables/sample-qc.tsv`: raw count totals and the number of genes with a nonzero count in each sample.
-2. `results/my-study/figures/sample-pca.png`: exploratory clustering of samples after variance-stabilizing transformation.
-3. `results/my-study/tables/differential-expression.tsv`: one row per tested gene, with estimated log2 fold change, p-value and adjusted p-value.
-4. `results/my-study/run-log.txt`: design, contrast, filtering, software and tested-gene count.
+| Figure inside `results/my-study/figures/` | Question to ask |
+|---|---|
+| `library-sizes.png` | Do supplied count totals vary, and what might explain that? |
+| `sample-pca.png` | How do samples vary after transformation, relative to condition and pairing? |
+| `sample-distances.png` | Which transformed sample profiles are similar across all retained genes? |
+| `ma-plot.png` | How do effect estimates relate to mean normalized abundance? |
+| `volcano.png` | How do estimated effects relate to available adjusted p-values? |
+| `selected-gene.png` | What do normalized counts look like for the illustrative selected gene? |
 
-The files listed here are **expected outputs**, not evidence that the analysis has already run. A PCA plot helps identify patterns and possible outliers; it is not a statistical test of the treatment effect. The adjusted p-value applies to the specified fitted contrast, not an unadjusted comparison of raw counts.
+Corresponding numbers belong in `results/my-study/tables/`. Read [the output map](../../01-run-the-workflow.qmd) before drafting claims.
 
-**Checkpoint:** Describe what you expect a positive log2 fold change to mean for your stated contrast.
+## Anticipate different valid outcomes
 
-[Next: Meet the data](02-meet-the-data.qmd)
+PCA may emphasize donor variation, batch effects, condition or another source. Overlap does not mean there are no differentially expressed genes. Separation does not identify which genes are statistically supported. The design terms used in fitting are not automatically removed from transformed or normalized data.
+
+The workflow colours gene points using `padj < 0.05`, without requiring a minimum effect size. It plots unshrunken effects, omits missing adjusted p-values from the volcano and selects an illustrative gene after analysis. These displays do not independently validate the test.
+
+No gene meeting the decision threshold is also a reportable result. Examine sample size, uncertainty, design and data quality; do not keep modifying a model until a desired result appears.
+
+## Your task
+
+Write two plausible outcomes, including one without clear separation or discoveries. For each, name an output you would inspect and evidence needed to interpret it. Choose a statement that can be checked numerically and another requiring additional biological evidence.
+
+**Before moving on:** you can explain what each plot displays without knowing what your study's result will be.
+
+[Next: Meet your data](02-meet-the-data.qmd)

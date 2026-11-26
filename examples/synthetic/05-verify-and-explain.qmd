@@ -1,87 +1,53 @@
-# Verify and explain
+# Verify and Explain: Synthetic practice
 
-Verification traces a saved number to its input. Start with A01, then use the gene table and PCA to support a carefully worded observation.
-
-## 1. Check A01 with the supplied script
+## Check A01 independently
 
 ```bash
 Rscript scripts/R/verify_sample.R data/synthetic results/synthetic A01
 ```
 
-For this bundled version, A01 has **629,417 counts** and **1,935 detected genes**. Compare these with the input and `results/synthetic/tables/sample-qc.tsv`. If your input differs, use its actual values and document the version.
+For the current simulation, expect **629,417 supplied counts** and **1,935 detected genes**. The independent script reads the raw column and saved sample-QC row and compares those two quantities. It does not rerun or validate the DESeq2 fit, adjusted p-values or every input/script hash.
 
-## 2. Calculate independently
-
-Paste the following into an R console from the main project folder:
+Repeat the arithmetic in an **R console** opened in the main project folder:
 
 ```r
 x <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
-saved <- read.delim("results/synthetic/tables/sample-qc.tsv")
-manual_total <- sum(x$A01)
-manual_detected <- sum(x$A01 > 0)
-row <- saved[saved$sample_id == "A01", ]
-cat("Total: manual", manual_total, "saved", row$total_counts,
-    "agrees", identical(as.numeric(manual_total), as.numeric(row$total_counts)), "\n")
-cat("Detected: manual", manual_detected, "saved", row$detected_genes,
-    "agrees", identical(as.numeric(manual_detected), as.numeric(row$detected_genes)), "\n")
+qc <- read.delim("results/synthetic/tables/sample-qc.tsv")
+sum(x$A01)
+sum(x$A01 > 0)
+qc[qc$sample_id == "A01", ]
 ```
 
-Both agreement checks should be `TRUE`. If not, confirm the sample ID, file version and whether the output is from the latest run. Do not edit a saved number to force agreement. This check verifies the count summary, **not** the DESeq2 fit.
+Exit with `q(save = "no")` before using terminal commands again. Do not edit a saved value to force agreement; investigate the input version and completed run first.
 
-## 3. Connect a gene result to the question
+## Trace the normalized gene display
 
-```r
-result <- read.delim("results/synthetic/tables/differential-expression.tsv")
-print(head(result[, c("gene_id", "log2FoldChange", "pvalue", "padj")]))
-cat("Genes with padj < 0.05:", sum(result$padj < 0.05, na.rm = TRUE), "\n")
-cat("Missing adjusted p-values:", sum(is.na(result$padj)), "\n")
-```
-
-Select one row. Check its sign against `group B A` in `run-log.txt`. Compare counts in all A and B replicates; explain why any one raw count cannot reproduce the model's fold change or p-value. Do not call a gene important merely because its adjusted p-value is small.
-
-## 4. Explain the PCA with evidence
-
-Open `results/synthetic/figures/sample-pca.png`. Describe a visible pattern, the percentages on the axes and any overlap. Link your sentence to the figure and at least one number from a table. A PCA cannot establish which genes are differentially expressed. Because all data here are fictional, do not assign a biological cause.
-
-**Ready to report:** state A01's independently checked values, one selected gene's direction and adjusted p-value, and one limitation.
-
-
-
-## Check the selected-gene figure numerically
-
-In an R console, trace normalized counts back to the raw counts and saved size factors:
+In an R console:
 
 ```r
 raw <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
 size <- read.delim("results/synthetic/tables/size-factors.tsv")
 gene <- read.delim("results/synthetic/tables/selected-gene-counts.tsv")
-v <- as.numeric(unlist(raw[match(gene$gene_id[1], raw$gene_id), gene$sample_id], use.names = FALSE))
+i <- match(gene$gene_id[1], raw$gene_id)
+v <- as.numeric(unlist(raw[i, gene$sample_id], use.names = FALSE))
 sf <- size$size_factor[match(gene$sample_id, size$sample_id)]
+stopifnot(!anyNA(v), !anyNA(sf), all(sf > 0))
 stopifnot(isTRUE(all.equal(v / sf, gene$normalized_count, tolerance = 1e-8)))
 print(gene)
 ```
 
-This verifies the arithmetic behind the plotted normalized counts, not the model's p-values. Check the selected gene in `differential-expression.tsv` and confirm its direction, standard error and adjusted p-value. Paired normalized-count lines can differ from the overall model estimate because the model combines samples and uncertainty.
+This checks plotted normalized counts against raw counts and **saved** size factors. It does not independently estimate those factors or reproduce a fitted coefficient. A raw A/B ratio, a normalized-count ratio and the model's donor-adjusted effect are different calculations.
 
-## Explain all six figures
+## Inspect a fitted result
 
-Write one evidence-based sentence per figure. Quote a sample total, PCA axis percentage, sample-pair distance, gene effect or adjusted p-value from its supporting table. Note unavailable values and avoid treating visually separated samples as a significance test. For airway, distinguish treatment effects from cell-line variation; for synthetic data, keep all biological claims fictional.
+Open `tables/differential-expression.tsv` inside `results/synthetic/`. Select a row and record `gene_id`, `log2FoldChange`, `lfcSE`, `pvalue` and `padj`. Confirm its sign against `group B A` in the run log. Count missing adjusted p-values separately; their absence can arise from independent filtering or outlier handling, among other reasons.
 
+Compare Gene_0002 and Gene_0003 with `simulation-truth.tsv` and `tables/example-gene-counts.tsv`. No generating condition effect does not guarantee a fitted effect of exactly zero. Variable donor responses need not all point in the same direction. Keep both examples rather than selecting only an attractive result.
 
-## Check the two prespecified examples
+## Explain six figures with evidence
 
-The extra panels use `Gene_0002` and `Gene_0003`, chosen in the simulation before DESeq2 was fitted. Inspect their observed counts and model estimates:
+Write one sentence per figure, using a raw total, PCA percentage, sample distance or gene estimate from its table. A small adjusted p-value concerns the fitted test; it does not make the gene biologically important. The post-analysis selected-gene plot reuses the fitted dataset and is not independent confirmation.
 
-```r
-examples <- read.delim("results/synthetic/tables/example-gene-counts.tsv")
-truth <- read.delim("data/synthetic/simulation-truth.tsv")
-result <- read.delim("results/synthetic/tables/differential-expression.tsv")
-ids <- c("Gene_0002", "Gene_0003")
-print(examples[examples$gene_id %in% ids, ])
-print(truth[truth$gene_id %in% ids, c("gene_id", "simulated_log2_effect")])
-print(result[result$gene_id %in% ids, c("gene_id", "log2FoldChange", "lfcSE", "padj")])
-```
-
-A zero generating effect does not force identical observed counts or an estimated fold change of exactly zero. Variable donor responses can differ in direction. Each panel uses its own vertical scale; compare numerical values rather than line steepness across panels. Do not remove an example because its p-value does not match an expectation.
+**Your task:** keep a record of A01's manual/saved values, one normalized-count check, one correctly directed gene estimate and one limitation. Check provenance in `tables/input-script-hashes.tsv` yourself if input or script versions are uncertain; this verifier does not automatically enforce it.
 
 [Next: Write the report](06-export-the-report.qmd)

@@ -1,21 +1,34 @@
-# Meet the data
+# Meet: Your own study
 
-## The two inputs
+## Prepare the count matrix and metadata
 
-| File | First column | Other columns |
+Place inputs in `data/my-study/`:
+
+| File | Required layout |
+|---|---|
+| `gene-counts.tsv` | First column `gene_id`; one unique gene per row; one raw integer-count column per sample |
+| `sample-metadata.tsv` | First column `sample_id`; one unique row per sample; supported design columns |
+
+Use tab-separated text with exact matching sample IDs. Do not supply TPM, FPKM, CPM, log counts or transformed expression to this matrix interface. Rounding normalized values does not recover raw counts. Quantification workflows requiring transcript-level imports need a suitable documented adaptation.
+
+## Match the script's actual design interface
+
+| Metadata layout | Model used | Contrast |
 |---|---|---|
-| `data/my-study/gene-counts.tsv` | `gene_id` (one unique gene per row) | One nonnegative integer count column per sample |
-| `data/my-study/sample-metadata.tsv` | `sample_id` (one unique sample per row) | Design variables, including a condition column |
+| `group` containing A and B, no `donor` | `~ group` | B relative to A |
+| `group` A/B plus `donor`, one sample per donor in each group | `~ donor + group` | B relative to A, accounting for donor |
+| `cell` plus `dex` containing untrt/trt, one of each per cell line | `~ cell + dex` | trt relative to untrt, accounting for cell line |
 
-The current script accepts `group` with A/B for an independent replicated comparison, optionally with `donor` for complete A/B pairs, or `cell` plus `dex` with the airway paired layout. Your study may require a different design, level names, covariates or contrast: review and edit the script before inference. Do not rename real conditions A/B merely to force them through this template.
+If both `cell` and `dex` exist, the script chooses that layout before checking `group`. Do not leave misleading unused airway-style columns in your input. Other covariates are not automatically added to the design.
 
-To inspect just the header and first few rows in R:
+Keep condition/source encodings and their original meanings documented. Unsupported designs require an explicit code change and review, not fabricated pairing or condition labels.
 
-```r
-head(read.delim("data/my-study/gene-counts.tsv", check.names = FALSE)[, 1:4])
-head(read.delim("data/my-study/sample-metadata.tsv"))
-```
+## Preserve provenance
 
-Run those lines in an R console in the main project folder. Gene IDs are labels, not gene symbols unless the source annotation says so.
+Record source, organism, count-generation method, annotation version, date and any identifier changes. Resolve duplicated gene labels using a documented upstream rule rather than dropping rows arbitrarily. Do not treat technical runs as independent biological replicates.
+
+The current checker rejects missing values anywhere in metadata. Keep the supplied table focused on complete, required analysis variables; preserve fuller source metadata separately. Never fill an unknown donor or condition with an invented value merely to pass checks.
+
+**Your task:** trace one sample across matrix and metadata, identify its biological source and explain the selected design row. Protect participant identifiers before sharing files or AI prompts.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)

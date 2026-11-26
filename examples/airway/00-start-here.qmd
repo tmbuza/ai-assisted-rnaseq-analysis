@@ -1,17 +1,27 @@
-# Airway example: apply the workflow
+# Define: Airway case study
 
 ## The question
 
-**Example:** dexamethasone experiment. **Contrast:** treated versus untreated, accounting for cell line.
+**Which genes differ in dexamethasone-treated versus untreated airway smooth-muscle cell-line samples, accounting for baseline differences among cell lines?**
 
-Run `Rscript scripts/R/prepare_airway.R` first to export the package counts and metadata.
+This real dataset comes from Himes et al. (2014), available through the Bioconductor [airway package](https://bioconductor.org/packages/airway/). The packaged experiment has **eight samples from four cell lines**, each measured untreated and treated. This is bulk RNA-seq: each count column describes a sample, not one single cell.
 
-The input is a matrix of raw integer gene counts and a sample metadata table. Each column represents one biological sample; each row represents one gene. This is a gene-level analysis, starting after sequencing and count generation.
+The model is `~ cell + dex`. `cell` identifies the matched cell line; `dex` identifies treatment. The contrast is `dex trt untrt`: positive log2 fold changes mean higher model-estimated expression in treated samples relative to untreated samples, accounting for cell line.
+
+The input matrix is downstream of count generation. This practical does not process FASTQ reads, assess alignment quality or reproduce every analysis in the original publication.
+
+## Set the interpretation boundary
+
+The paired design supports studying the treatment contrast in these measured cell lines under the fitted model. It does not by itself demonstrate clinical benefit, establish every gene's mechanism or justify generalization to all airway cell populations.
+
+Including cell line in the model accommodates baseline differences; it does not erase those differences from normalized counts or PCA. You will inspect treatment and cell-line structure together.
 
 ## Your task
 
-Write a one-sentence question that names the two conditions, the unit measured, and any matched samples or design terms. Record what might influence interpretation. For airway, four cell lines are measured under both treatment conditions; the model accounts for cell line. For synthetic data, group labels have no biological meaning.
+Write the question and identify the numerator, reference and pairing variable. State why the eight samples are four matched pairs rather than eight unrelated biological sources. Name one conclusion that requires evidence beyond this count-matrix analysis.
 
-Proceed in order. Each page shows a command or checkpoint and explains how to inspect the result.
+**Optional AI prompt:** “Review my description of this paired treatment comparison. Distinguish what the experiment measures from a clinical or mechanistic claim.”
 
-[Next: See the result](01-see-the-result.qmd)
+**Before moving on:** the treatment contrast and the role of cell line are explicit.
+
+[Next: Preview the results](01-see-the-result.qmd)

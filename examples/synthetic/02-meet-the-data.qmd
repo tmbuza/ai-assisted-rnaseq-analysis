@@ -1,33 +1,44 @@
-# Meet the data
+# Meet: Synthetic practice
 
-Two TSV files connect on sample IDs:
+## Prepare or inspect the inputs
 
-| File | Rows | First column | Other columns |
-|---|---|---|---|
-| `data/synthetic/gene-counts.tsv` | 2,000 fictional genes | `gene_id` | Raw nonnegative integer counts for A01–A06 and B01–B06 |
-| `data/synthetic/sample-metadata.tsv` | 12 samples | `sample_id` | `group` (A or B) and `donor` (D01–D06) |
+For the first reproduction, keep the supplied inputs unchanged. If they are missing or you deliberately want to recreate the revised simulation, run from the main project folder:
 
-**Samples are columns in counts and rows in metadata.** Exact spelling and case matter. A zero is a count of zero in this file; a missing value is unknown and needs investigation.
+```bash
+Rscript scripts/R/prepare_synthetic.R
+```
 
-Inspect the files in an R console opened in the main project folder:
+The current generator uses seed **20261126** and overwrites only the synthetic input files. Recreate results afterward; old outputs do not automatically become valid for new inputs.
+
+| File in `data/synthetic/` | What it contains |
+|---|---|
+| `gene-counts.tsv` | 2,000 gene rows; first column `gene_id`; sample columns A01–A06 and B01–B06 |
+| `sample-metadata.tsv` | 12 sample rows; first column `sample_id`, then `group` and `donor` |
+| `simulation-truth.tsv` | Generating expression, dispersion and donor-specific effects |
+| `simulation-samples.tsv` | Library multipliers used during simulation |
+| `plot-examples.tsv` | Prespecified Gene_0002 and Gene_0003 expression examples |
+| `simulation-record.txt` | Version, seed and construction rules |
+
+Samples are **columns in counts and rows in metadata**. A01 and B01 share D01; the equivalent suffix pairing continues through D06. Count zeros are valid observed zeros. A missing value means unavailable information and is rejected by this workflow.
+
+## Inspect in R
+
+Open an R console from the main project folder:
 
 ```r
 counts <- read.delim("data/synthetic/gene-counts.tsv", check.names = FALSE)
 metadata <- read.delim("data/synthetic/sample-metadata.tsv")
 cat("genes:", nrow(counts), "samples:", ncol(counts) - 1, "\n")
-print(table(metadata$group))
+print(table(metadata$donor, metadata$group))
 print(head(counts[, 1:4]))
-print(head(metadata))
 ```
 
-Expect 2,000 genes and six fictional donors, each measured once in A and once in B. Look up `Gene_0001` for A01 and B01, but do not infer its model estimate from just those two raw values. Gene-level inference combines replicates, normalization, dispersion and the study design.
+Exit with `q(save = "no")` before using terminal commands again. Each donor/group table entry should be one.
 
-## Why this simulation has more variation
+## Do not confuse construction with estimation
 
-Most genes have no simulated condition effect. Changed genes have different effect sizes and directions. Baseline expression, donor effects and count variability differ across genes. Twenty genes have a zero generating mean; other low-count genes may also fail the analysis filter. A sample’s detected-gene count is not the same as the retained gene count.
+A generating effect of zero does not force identical observed A/B counts. Library multipliers are not DESeq2's estimated size factors. `plot-examples.tsv` influences the teaching panels, not the fitted model. Counts, estimated effects and statistical evidence must still be inspected.
 
-The simulation records its rules in `data/synthetic/README.md` and `simulation-record.txt`. `simulation-truth.tsv` contains generating parameters, not DESeq2 estimates. `simulation-samples.tsv` records library multipliers, which are not the estimated size factors. `plot-examples.tsv` prespecifies two gene examples; it is used only for plotting and does not change the fitted model. The seed and rules were fixed before fitting; no discovery count was targeted.
-
-**Record:** gene count, sample count, group sizes, and the first gene count for A01 and B01.
+**Your task:** trace A01 and B01 across both main tables. Locate Gene_0002 and Gene_0003 in the truth and plotting files, and explain why their observed estimates need not equal their generating parameters exactly.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)

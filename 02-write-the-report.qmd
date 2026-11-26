@@ -1,0 +1,47 @@
+# Write the report
+
+A report should let another reader identify the question, follow the contrast, trace a key number and understand the strongest supported conclusion. A collection of six plots is not yet that account.
+
+## 1. Create a starter
+
+From the main project folder:
+
+```bash
+Rscript scripts/R/create_report.R synthetic
+```
+
+Use `airway` or `my-study` for the other paths. The helper creates `reports/synthetic-report.qmd` and a separate Quarto configuration inside `reports/`. It preserves an existing report. The tracked starter is `templates/report.qmd`; generated learner writing and HTML remain ignored.
+
+## 2. Write from the evidence
+
+| Section | What a reader needs |
+|---|---|
+| Question/design | Numerator, reference, biological units and any pairing |
+| Data/methods | Source, preprocessing boundary, count units, filter, model and versions |
+| Results | Raw sample summary, retained gene count, fitted estimates and six figure observations |
+| Verification | Exact sample/gene IDs, manual values, saved values and verdicts |
+| Interpretation | Supported conclusions, alternatives and design/technical limits |
+| AI use | Assistance received and checks you performed |
+| Reproduce/next step | Exact commands and one justified follow-up |
+
+Use the saved run log for model/contrast and the [output map](01-run-the-workflow.qmd) to locate each number. State the denominator when counting genes meeting a threshold: input genes, retained result rows and genes with available adjusted p-values are different sets.
+
+For a reported gene, give the direction and magnitude of the effect, uncertainty and adjusted evidence. Do not translate `padj` into the probability that the gene is unchanged. Explain missing values rather than treating them as zero or as discoveries.
+
+A normalized-count check uses the saved size factors; a raw-summary check verifies only its stated quantities. Describe those limits so “verified” is not mistaken for independent confirmation of the entire fitted analysis.
+
+## 3. Render separately from the book
+
+After completing the analysis and editing the report:
+
+```bash
+cd reports
+quarto render synthetic-report.qmd
+cd ..
+```
+
+Replace the report name for the other datasets. The HTML stays in `reports/` and embeds the six figures for convenient sharing. Inspect it for missing images, bracketed starter text, incorrect contrasts and private data before sharing.
+
+Keep reports out of `_quarto.yml`. The helper will not rewrite a report you created earlier; update older image paths and the separate report configuration manually if needed.
+
+**Final learner check:** can a reader reconstruct one raw-count check, identify the fitted comparison and tell an observation from a proposed biological explanation?

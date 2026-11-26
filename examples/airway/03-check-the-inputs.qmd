@@ -1,16 +1,31 @@
-# Check the inputs
+# Check: Airway case study
 
-## Run the checks
+## Run the structural and design check
+
+After exporting the inputs:
 
 ```bash
-Rscript scripts/R/prepare_airway.R
 Rscript scripts/R/run_workflow.R data/airway results/airway --check-only
 ```
 
-The script stops if it finds duplicate or missing identifiers, noninteger/negative counts, mismatched sample names, or an unsupported design. It reorders metadata to match count columns before modelling. Expect eight samples, four cell lines and the design `~cell + dex`.
+Expect **eight samples** and design **`~ cell + dex`**. Record the reported number of genes. Check-only validates the inputs and model structure; it does not fit DESeq2 or replace earlier tables and figures.
 
-**Independent check:** open the metadata and count the biological replicates in each condition. In airway, check that each `cell` appears once as `untrt` and once as `trt`. If a variable is confounded with condition, stop and revisit the design; no script can recover a comparison absent from the data.
+The checker verifies identifiers, matching sample sets, integer nonnegative counts, nonzero sample totals and missing values. It aligns metadata to the count-column order. For this layout, `dex` must contain `untrt` and `trt`, and each cell line must appear exactly once in each condition.
 
-If the command fails, read the first error message and correct the named file. Do not edit the source counts to manufacture replication or remove troublesome samples without documenting the reason.
+It also checks that the model matrix is full rank and has residual degrees of freedom. This detects certain confounded or saturated designs, but cannot prove that the metadata labels or biological replication are correct.
+
+## Review the pairing yourself
+
+Open the metadata and make a cell-line-by-condition table. Every entry should equal one. Check one named pair in the source records. Removing a troublesome sample would break its complete pair in this template; investigate and document the design implications rather than removing it silently.
+
+The prefilter applied during Run is **counts ≥10 in at least two samples**, across all samples. It removes low-information genes before fitting. It is not a sample-exclusion rule or a guarantee that every retained gene receives an adjusted p-value.
+
+## Your task
+
+Record the dimensions, four complete pairs, formula and contrast `dex trt untrt`. Explain what passing the rank check establishes and what still depends on reliable experimental metadata.
+
+**Optional AI prompt:** “Review this paired metadata table and intended model. Flag a possible mismatch or confounding issue without inventing missing samples.”
+
+**Before moving on:** the check passes and you can explain why the cell-line term belongs in this analysis.
 
 [Next: Run the analysis](04-run-the-analysis.qmd)

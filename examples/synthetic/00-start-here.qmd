@@ -1,28 +1,31 @@
-# Synthetic practice: learn the workflow
+# Define: Synthetic practice
 
-Start after [Required setup](../../00-setup.qmd). The 2,000 fictional genes and groups A and B were constructed for teaching; do not give them biological names or treat their statistical signals as findings about an organism.
+## The question
 
-::: {.callout-note icon=false}
-## Our question
+**Which fictional genes show a model-estimated difference in B relative to A, after accounting for paired donor differences?**
 
-Which fictional genes have different model-estimated counts in group B compared with group A, and how can we verify and explain the outputs?
-:::
+This is a paired bulk RNA-seq simulation: **2,000 genes, 12 samples and six fictional donors**. Each donor contributes one A sample and one B sample. An A/B pair belongs together; the 12 columns do not represent 12 independent donors.
 
-Each of six fictional donors has one A sample and one B sample. The model accounts for donor before estimating the B-versus-A effect, preparing you for airway’s paired cell-line design.
+The model is `~ donor + group`. The donor term accounts for systematic baseline differences across donors. The contrast is `group B A`: positive log2 fold change means higher model-estimated expression in B relative to A.
 
-By the end you will match 12 sample IDs across two files, check the design and counts, run the supplied R workflow, verify A01 independently, explain the sign of a fold change, and write a short report.
+The generator deliberately varies baseline expression, count depth, dispersion, donor effects and donor-specific response. Most genes have no simulated condition effect. Twenty have a zero generating mean. The simulation includes two prespecified expression examples as well as a gene selected after fitting.
 
-| Lesson | Task |
-|---|---|
-| [Preview](01-see-the-result.qmd) | Explore six prepared figures and their supporting tables |
-| [Meet](02-meet-the-data.qmd) | Inspect samples, gene counts and group labels |
-| [Check](03-check-the-inputs.qmd) | Validate format, IDs, replicates and contrast |
-| [Run](04-run-the-analysis.qmd) | Reproduce all six figures, tables and run record |
-| [Verify](05-verify-and-explain.qmd) | Independently calculate A01's count summary |
-| [Write](06-export-the-report.qmd) | Report evidence, interpretation and limits |
+## What you will learn
 
-Run shell commands in the terminal **from the main project folder**. Run R expressions in the R console or in a saved `.R` script. Quarto rendering displays the guide; it does not execute the analysis.
+You will match sample IDs, inspect pairing, run the count-model workflow, interpret six figures, independently check one raw-count summary and trace plotted normalized counts to size factors. The final report will connect a result to its contrast and limits.
 
-**Before continuing:** explain why an A/B result in invented data cannot be presented as a biological discovery.
+These are fictional measurements. A small adjusted p-value is evidence within the fitted simulation model, not a biological discovery. Known generating effects are useful for discussing the workflow but are not the same quantity as noisy fitted estimates.
+
+## Your task
+
+Write the question in your own words. Identify the six pairs and complete:
+
+> A positive log2 fold change means higher expression in … relative to …, accounting for … .
+
+Then state one conclusion that a simulation cannot support about an organism or treatment.
+
+**Optional AI prompt:** “Review my interpretation of this paired A/B question and contrast. Keep simulated labels fictional and identify what the donor term does.”
+
+**Before moving on:** you can name the numerator, reference and pairing unit without looking at the plot.
 
 [Next: Preview the results](01-see-the-result.qmd)

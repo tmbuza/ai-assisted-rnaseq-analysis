@@ -1,19 +1,96 @@
 # Appendix
 
-## Key terms
+## Key quantities
 
-- **Raw gene count:** reads or fragments assigned to a gene in one sample; do not substitute TPM/FPKM for the count input here.
-- **Library total:** sum of raw counts in one column of the supplied count matrix; this is a count-table check, not a sequencing quality metric.
-- **Log2 fold change:** estimated treatment/group difference on a base-2 scale for the chosen contrast; positive means higher in the named numerator.
-- **Adjusted p-value:** p-value adjusted across many tested genes. `NA` values need investigation and should not be counted as significant.
-- **Cell line term:** in airway, accounts for baseline differences across the four measured cell lines.
+| Term | Meaning in this workflow |
+|---|---|
+| Raw count | Supplied gene-level read/fragment count for one sample; not TPM/FPKM |
+| Library total | Sum of a raw matrix column, before gene filtering |
+| Detected genes | Number of genes with raw count greater than zero in one sample |
+| Retained gene | A gene with counts ≥10 in at least two samples, entering the fitted dataset |
+| Size factor | DESeq2's sample-specific normalization factor; not necessarily the simulated library multiplier |
+| Normalized count | Retained raw count divided by the estimated size factor |
+| VST | Variance-stabilizing transformation for exploration, not differential testing input |
+| Log2 fold change | Fitted effect for numerator relative to reference, accounting for design terms |
+| `lfcSE` | Standard error of the reported log2 fold-change estimate |
+| `baseMean` | Mean normalized count across samples in the fitted dataset |
+| `padj` | Multiple-testing-adjusted p-value; not the probability that a particular null is true |
 
-## Further reading
+A log2 fold change of 1 corresponds to a twofold model-estimated difference; −1 corresponds to half. The sign is meaningless without a named contrast. Effects in this script are unshrunken, so inspect their uncertainty rather than ranking solely by magnitude.
 
-- [Bioconductor airway dataset](https://bioconductor.org/packages/airway/)
-- [Bioconductor RNA-seq gene-level workflow](https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html)
-- [DESeq2 vignette](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+The chosen `padj < 0.05` rule targets false-discovery-rate control under the procedure's assumptions. It does not promise that every called gene is true or biologically important. No minimum effect size is required by this script. The default two-sided test concerns a zero effect, not an explicitly tested minimum fold change.
 
-## Figure methods
+## Missing adjusted p-values
 
-The plotting and transformation choices follow the [DESeq2 documentation](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html), including sample distances, PCA, MA plots and normalized counts. This guide’s volcano uses adjusted p-values and unshrunken effects. Normalization and transformation do not remove donor effects; donor is handled by the differential expression design.
+Do not replace `NA` with zero or count it as a discovery. A retained gene can lack an adjusted p-value because of DESeq2 independent filtering or lack a p-value because of outlier handling. Inspect its raw counts, `baseMean`, p-value and current DESeq2 documentation. The simple count prefilter and DESeq2 independent filtering are different decisions.
+
+The volcano omits missing adjusted p-values. Its numerical zero p-values are floored only for display; saved result values are not changed by plotting. PCA and the distance heatmap summarize transformed sample profiles, not gene-level test significance.
+
+## Model and input troubleshooting
+
+| Symptom | What to inspect |
+|---|---|
+| Missing file | Main project folder and exact relative path |
+| IDs differ | Count columns versus metadata sample_id values, including case |
+| Noninteger counts | Wrong assay, normalized input, text or missing values |
+| Missing metadata | Required variables and extra columns; the checker rejects any missing value |
+| Incomplete pairs | One sample per donor/condition is required by the paired template |
+| Wrong mode/formula | cell/dex takes priority over group; unsupported covariates are not inferred |
+| Rank/degree-of-freedom error | Confounding, saturated design or insufficient replication |
+| Normalized display disagrees | Match samples by ID, use saved size factors and confirm the completed run |
+| Raw verification passes but fitted outputs look old | The verifier checks only two raw summaries; inspect run logs/hashes and rerun fully |
+| Missing report image | Run the dataset workflow and use ../results/DATASET/figures/ from reports/ |
+
+Changing an input, formula or contrast requires a full rerun and new verification. The script records hashes but the sample verifier does not compare them automatically. An interrupted run may leave earlier outputs, so do not interpret a partially refreshed directory.
+
+## Installation and environment troubleshooting
+
+Use the R version recorded in the supplied lockfile. `renv` restores packages, not R or system compilation tools. Run `Rscript scripts/R/setup.R` from the main project folder; do not snapshot an incomplete installation.
+
+If an R console can load a package but the terminal cannot, check `.Rprofile`, `renv/activate.R`, the working folder and terminal R executable. In the terminal:
+
+```bash
+Rscript -e 'cat("DESeq2 available:", requireNamespace("DESeq2", quietly = TRUE), "\n"); print(.libPaths())'
+```
+
+For an inconsistent environment, inspect `Rscript -e 'renv::status()'`. Keep the first download/compiler error when seeking help; the final dependent-package error may only be a consequence. Missing source compilers or system libraries need the remedy appropriate to that error and operating system, not repeated snapshots or arbitrary repository changes.
+
+### Maintainer-only environment creation {#environment-maintenance}
+
+Learners should receive an already tested lockfile and activation files. If maintaining a repository that has never been initialized, use a separate maintainer R session in the project folder to initialize an isolated library and install the intended packages:
+
+```r
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+renv::init(bare = TRUE, restart = FALSE)
+renv::settings$snapshot.type("all")
+renv::install(c("BiocManager", "ggplot2"))
+BiocManager::install(c("DESeq2", "airway", "SummarizedExperiment"),
+                     ask = FALSE, update = FALSE)
+stopifnot(requireNamespace("DESeq2", quietly = TRUE),
+          requireNamespace("airway", quietly = TRUE),
+          requireNamespace("SummarizedExperiment", quietly = TRUE),
+          requireNamespace("ggplot2", quietly = TRUE))
+```
+
+This is not a repair recipe for an existing tested environment. Keep that environment and its settings intact. For an initialized project, preserve the recorded package sources and restore rather than silently installing current versions.
+
+After successful synthetic and airway runs, independent checks and report rendering, the maintainer can snapshot the working environment in R:
+
+```r
+renv::snapshot(prompt = FALSE)
+renv::status()
+q(save = "no")
+```
+
+Retain `renv.lock`, `.Rprofile`, `renv/activate.R`, `renv/settings.json` and `renv/.gitignore`; exclude the local library. Test restoration in a clean project copy before describing the environment as portable.
+
+## Sources and next learning steps
+
+- [DESeq2 vignette](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html): count modelling, designs, contrasts, transformations and result interpretation.
+- [Airway package](https://bioconductor.org/packages/airway/) and [dataset vignette](https://bioconductor.org/packages/release/data/experiment/vignettes/airway/inst/doc/airway.html): packaged data and study provenance.
+- [Himes et al. (2014)](https://doi.org/10.1371/journal.pone.0099625): original airway study.
+- [Bioconductor gene-level RNA-seq workflow](https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html): broader worked analysis.
+- [renv introduction](https://rstudio.github.io/renv/articles/renv.html): environment creation, recording and restoration.
+
+This guide makes its plotting/filtering choices explicit. It does not implement every optional method in these references. Consider gene annotation, effect-size shrinkage, additional sample QC, an appropriate extended design or functional analysis only when justified by the question and data.

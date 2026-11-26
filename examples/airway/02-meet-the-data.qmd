@@ -1,21 +1,43 @@
-# Meet the data
+# Meet: Airway case study
 
-## The two inputs
+## Export the packaged count matrix
 
-| File | First column | Other columns |
-|---|---|---|
-| `data/airway/gene-counts.tsv` | `gene_id` (one unique gene per row) | One nonnegative integer count column per sample |
-| `data/airway/sample-metadata.tsv` | `sample_id` (one unique sample per row) | `cell` and `dex` |
+From the main project folder:
 
-Export the input tables with `Rscript scripts/R/prepare_airway.R`. Inspect the metadata: `dex` values are `untrt` and `trt`, and each cell line has both conditions. The original package and study are identified in `data/airway/README.md`.
-
-To inspect just the header and first few rows in R:
-
-```r
-head(read.delim("data/airway/gene-counts.tsv", check.names = FALSE)[, 1:4])
-head(read.delim("data/airway/sample-metadata.tsv"))
+```bash
+Rscript scripts/R/prepare_airway.R
 ```
 
-Run those lines in an R console in the main project folder. Gene IDs are labels, not gene symbols unless the source annotation says so.
+The script loads the `airway` data object from the installed package and writes the original assay and selected sample metadata as TSVs. It does not download sequencing reads or use a transcript-level normalized table. Rerunning exports the files again, so regenerate results afterward.
+
+| File in `data/airway/` | Structure |
+|---|---|
+| `gene-counts.tsv` | First column `gene_id`; one raw integer-count column per sample |
+| `sample-metadata.tsv` | First column `sample_id`; `cell` and `dex` columns |
+
+The `cell` values identify the four cell lines. `dex` contains `untrt` and `trt`. Each cell line contributes one sample in each condition. Sample identifiers such as `SRR1039508` are labels to match across files; they are not condition names.
+
+## Inspect the matching and pairs
+
+This is **R-console code**:
+
+```r
+counts <- read.delim("data/airway/gene-counts.tsv", check.names = FALSE)
+metadata <- read.delim("data/airway/sample-metadata.tsv")
+cat("genes:", nrow(counts), "samples:", ncol(counts) - 1, "\n")
+print(metadata)
+print(table(metadata$cell, metadata$dex))
+stopifnot(setequal(names(counts)[-1], metadata$sample_id))
+```
+
+Return to the terminal with `q(save = "no")`. Record the actual gene count from your source rather than assuming every annotation release is identical.
+
+## Preserve the meaning of identifiers
+
+Rows use the identifiers supplied by the package. A gene ID is not automatically a gene symbol, function or pathway. The selected-gene example can be checked numerically without attaching a mechanistic name to it. Functional interpretation requires a documented annotation source and further evidence.
+
+Record the package version and original citation in your report: Himes et al. (2014), DOI [10.1371/journal.pone.0099625](https://doi.org/10.1371/journal.pone.0099625). Keep the sample-level source and pairing information with the data.
+
+**Your task:** trace SRR1039508 across the two tables, identify its condition and cell line, and find its matched sample from metadata rather than from column position.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)

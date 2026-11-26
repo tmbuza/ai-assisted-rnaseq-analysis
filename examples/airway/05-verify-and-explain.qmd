@@ -1,47 +1,53 @@
-# Verify and explain
+# Verify and Explain: Airway case study
 
-## 1. Recalculate one sample
-
-Choose a sample ID from `data/airway/sample-metadata.tsv`.
+## Check the worked sample
 
 ```bash
-Rscript scripts/R/verify_sample.R data/airway results/airway <sample_id>
+Rscript scripts/R/verify_sample.R data/airway results/airway SRR1039508
 ```
 
-Replace `<sample_id>` with an actual ID when shown. The script sums that sample's raw gene counts, counts genes with nonzero counts, and compares both numbers with `tables/sample-qc.tsv`. A passing check supports the saved sample summary, **not** the whole differential expression model.
+The reference run described in the supplied guide reports **20,637,971 supplied counts** and **24,633 detected genes** for this sample. Check your exported input and saved `tables/sample-qc.tsv`; do not change a source count to make a reference value agree.
 
-## 2. Inspect the DE result
+For a manual check, use an **R console** in the main folder:
 
-Open `results/airway/tables/differential-expression.tsv`. The gene IDs, `log2FoldChange`, `pvalue` and `padj` are central fields. Compare the sign of the estimated fold change with the named contrast. `padj < 0.05` is a chosen decision threshold, not proof that every selected gene has a large or biologically important effect. Investigate `NA` values rather than counting them as discoveries.
+```r
+x <- read.delim("data/airway/gene-counts.tsv", check.names = FALSE)
+qc <- read.delim("results/airway/tables/sample-qc.tsv")
+sum(x$SRR1039508)
+sum(x$SRR1039508 > 0)
+qc[qc$sample_id == "SRR1039508", ]
+```
 
-Read `results/airway/run-log.txt` and confirm the number of genes tested. Select one gene and compare its raw counts across samples. Raw counts alone do not reproduce the fitted log2 fold change or adjusted p-value: those depend on normalization, dispersion, the design and multiple-testing adjustment.
+These summaries use all supplied genes, before the fitting prefilter. The verifier independently checks only the raw total and detected-gene count. It does not validate alignment quality, the full model or the currentness of every file.
 
-## 3. Explain the PCA
+## Verify the normalized-count display
 
-Look at `results/airway/figures/sample-pca.png`. Describe where samples cluster, any unusual sample and how much variation PC1/PC2 represent. Because the four cell lines each have two conditions, distinguish cell-line separation from treatment separation. The PCA alone does not establish differential expression or causation.
-
-**Your evidence:** record one verified sample total, one gene with its sign and adjusted p-value (or explain why no gene passes your threshold), and one observation about the PCA. State at least one limitation.
-
-
-
-## Check the selected-gene figure numerically
-
-In an R console, trace normalized counts back to the raw counts and saved size factors:
+In an R console:
 
 ```r
 raw <- read.delim("data/airway/gene-counts.tsv", check.names = FALSE)
 size <- read.delim("results/airway/tables/size-factors.tsv")
 gene <- read.delim("results/airway/tables/selected-gene-counts.tsv")
-v <- as.numeric(unlist(raw[match(gene$gene_id[1], raw$gene_id), gene$sample_id], use.names = FALSE))
+i <- match(gene$gene_id[1], raw$gene_id)
+v <- as.numeric(unlist(raw[i, gene$sample_id], use.names = FALSE))
 sf <- size$size_factor[match(gene$sample_id, size$sample_id)]
+stopifnot(!anyNA(v), !anyNA(sf), all(sf > 0))
 stopifnot(isTRUE(all.equal(v / sf, gene$normalized_count, tolerance = 1e-8)))
 print(gene)
 ```
 
-This verifies the arithmetic behind the plotted normalized counts, not the model's p-values. Check the selected gene in `differential-expression.tsv` and confirm its direction, standard error and adjusted p-value. Paired normalized-count lines can differ from the overall model estimate because the model combines samples and uncertainty.
+Exit R before entering terminal commands again. Agreement checks the saved display against raw counts and saved factors; it does not independently estimate factors, dispersions, fold changes or adjusted p-values.
 
-## Explain all six figures
+## Interpret a fitted gene and the sample plots
 
-Write one evidence-based sentence per figure. Quote a sample total, PCA axis percentage, sample-pair distance, gene effect or adjusted p-value from its supporting table. Note unavailable values and avoid treating visually separated samples as a significance test. For airway, distinguish treatment effects from cell-line variation; for synthetic data, keep all biological claims fictional.
+Confirm `dex trt untrt` in the run log. Locate the selected gene in `tables/differential-expression.tsv`; record effect direction, `lfcSE` and `padj`. A small adjusted p-value is not a probability that the null hypothesis is true, a measure of clinical benefit or a guarantee of biological importance.
+
+For PCA, state the axis percentages and distinguish paired cell-line structure from condition structure. The supplied reference figure reports PC1 47.7% and PC2 23.5%; check your own `tables/pca-variance.tsv`, which already contains percentages. Paired normalized-count lines can vary even when the fitted model estimates an overall effect.
+
+## Your task
+
+Write one evidence-based sentence per figure. Include a verified sample summary, a correctly directed gene estimate, a sample-pair observation and a limitation. Use source identifiers unless you have checked an annotation mapping. Cite the original study without presenting this practical as a reproduction of all its findings.
+
+**Optional AI prompt:** “Check whether my result paragraph matches these tables, contrast and pairing. Distinguish numerical verification from biological interpretation.”
 
 [Next: Write the report](06-export-the-report.qmd)

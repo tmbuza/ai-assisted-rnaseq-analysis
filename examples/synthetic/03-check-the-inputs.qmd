@@ -1,26 +1,29 @@
-# Check the inputs
+# Check: Synthetic practice
 
-From the main project folder, run:
+## Validate the files and design
 
 ```bash
 Rscript scripts/R/run_workflow.R data/synthetic results/synthetic --check-only
 ```
 
-Expect `Input checks passed: 12 samples; 2000 genes; design ~donor + group`. The metadata must identify six donors, each with exactly one A and one B sample. The fitted design is `~ donor + group`, with A as the reference.
+Expect **12 samples, 2,000 genes and design `~ donor + group`**. Check-only stops before package-dependent fitting and does not refresh results.
 
-`--check-only` stops before DESeq2 fitting and does not refresh previous figures or tables.
+The script checks first-column names, duplicate or missing identifiers, matching sample sets, finite nonnegative integer counts and nonzero sample totals. It reorders metadata rows to count-column order. It also rejects missing values anywhere in the supplied metadata, including extra columns.
 
-The script checks required headers, missing and duplicate identifiers, identical sample sets, finite nonnegative integer counts, A and B groups and replication. It aligns metadata rows to the count columns before modelling. It does **not** prove that the study is well designed.
+For this paired layout, `group` must contain A and B, and each donor must have exactly one sample in each group. The model matrix must have full rank and residual degrees of freedom. These checks detect some unsupported layouts; they do not establish biological independence or a good study design.
 
-| If the check fails | Look for |
-|---|---|
-| Missing file | Current folder or exact filename |
-| Sample IDs differ | Spelling, extra columns, missing rows, case |
-| Counts not integers | Normalized values, decimal entries, text, missing values |
-| Missing replication | Too few independent samples in either group |
+## Inspect the pairing yourself
 
-A first header should be `gene_id` and `sample_id`, respectively. Renaming a header cannot fix a transposed count matrix. Do not invent replicates or overwrite raw data just to pass the check.
+Open `sample-metadata.tsv`. Confirm six distinct donors, six A samples and six B samples, with A01/B01 assigned to D01 and the other pairs following the same rule. Do not infer pairing solely from column position.
 
-**Checkpoint:** explain why passing the file check is necessary but does not establish a valid biological comparison.
+The gene filter is applied later: a gene must have **at least 10 counts in at least two samples**, across the whole matrix. It is not a requirement of 10 counts in each condition or every donor. Structural input validation and expression filtering are different steps.
+
+## Your task
+
+Record the dimensions, pairing rule, design and contrast. Explain why 12 samples here provide six complete pairs, not 12 independent donors. Predict what happens if B01 is absent: the existing paired template should stop, not silently treat the study as complete.
+
+**Optional AI prompt:** “Review this metadata summary and model formula. Identify what is checked automatically and what still depends on knowing how samples were generated.”
+
+**Before moving on:** the check passes and the A/B contrast is scientifically meaningful within the simulation.
 
 [Next: Run the analysis](04-run-the-analysis.qmd)

@@ -1,40 +1,31 @@
-# Write the report
+# Write: Your own study
 
-Create `reports/my-study-report.qmd` using a plain-text editor. Start with this template and replace the prompts with your own verified findings:
-
-````markdown
----
-title: "My RNA-seq study: report"
-format: html
----
-
-# Question
-
-State the comparison and design.
-
-# Data and methods
-
-Give the data source, sample counts, gene-count source, model design, contrast, filtering and software versions from the run log.
-
-# Results
-
-Include the PCA figure, a small table or cited values from the differential-expression output, and a checked sample total. Identify the contrast direction and any missing/NA values.
-
-# Interpretation and limitations
-
-Separate observed patterns from tested differential expression. Note design constraints, sample size and what this analysis cannot establish.
-
-# Reproduce
-
-Record the exact input preparation, analysis and verification commands.
-````
-
-After saving the file, render it from the main project folder:
+## Create your report
 
 ```bash
-quarto render reports/my-study-report.qmd --to html
+Rscript scripts/R/create_report.R my-study
 ```
 
-The result appears alongside the QMD unless you specify another output directory. If results have not been generated, label the report as **pending** rather than inventing figures or counts. Cite the [airway package](https://bioconductor.org/packages/airway/) and original paper if using that case study.
+Open `reports/my-study-report.qmd`. The helper creates a separate Quarto project inside ignored `reports/` and preserves existing writing. The tracked starter lives in `templates/report.qmd`. Follow [Write the report](../../02-write-the-report.qmd) for the shared structure.
 
-**Final check:** can a reader trace every numerical statement to a generated table, figure or independent check? Does the conclusion match the design and limitations?
+## Turn the checks into evidence
+
+Use only your study's values and documented condition meanings. Include the source, independent biological replicate counts, pairing where applicable, final model/contrast and any code adaptation. Do not transfer numerical results or sample IDs from the worked examples.
+
+Report the input gene count, retained gene count, available adjusted p-values and the decision threshold separately. Include a checked sample summary and normalized-count example. Explain unresolved design or quality limits and identify one justified follow-up. A result with no genes meeting the threshold is still a result.
+
+## Render and review
+
+From the main project folder:
+
+```bash
+cd reports
+quarto render my-study-report.qmd
+cd ..
+```
+
+Read `reports/my-study-report.html`. The starter links all six figures in `../results/my-study/figures/` and embeds them in the rendered HTML. Confirm they display, remove bracketed starter text and trace every number to a table or calculation. Existing older reports are not rewritten automatically; update their image paths and rendering configuration as needed.
+
+**Your task:** identify one statement supported by an independent calculation, one by the fitted model, and one describing a limitation. State how AI helped and what you checked yourself.
+
+Keep generated reports and HTML in ignored `reports/`, separate from book chapters. Inspect content for private data before sharing.

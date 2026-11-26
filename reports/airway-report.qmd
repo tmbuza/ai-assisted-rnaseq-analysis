@@ -1,0 +1,51 @@
+---
+title: "Airway case study: report"
+format: html
+---
+
+# Question
+
+State the comparison and design.
+
+# Data and methods
+
+Give the data source, sample counts, gene-count source, model design, contrast, filtering and software versions from the run log.
+
+# Results
+
+Include the PCA figure, a small table or cited values from the differential-expression output, and a checked sample total. Identify the contrast direction and any missing/NA values.
+
+
+## Figures
+
+![Library sizes.](../results/airway/figures/library-sizes.png)
+
+[Describe the library sizes using checked numbers and state a limitation.]
+
+![PCA.](../results/airway/figures/sample-pca.png)
+
+[Describe the pca using checked numbers and state a limitation.]
+
+![Sample-distance heatmap.](../results/airway/figures/sample-distances.png)
+
+[Describe the sample-distance heatmap using checked numbers and state a limitation.]
+
+![MA plot.](../results/airway/figures/ma-plot.png)
+
+[Describe the ma plot using checked numbers and state a limitation.]
+
+![Volcano plot.](../results/airway/figures/volcano.png)
+
+[Describe the volcano plot using checked numbers and state a limitation.]
+
+![Selected-gene expression.](../results/airway/figures/selected-gene.png)
+
+[Describe the selected-gene expression using checked numbers and state a limitation.]
+
+# Interpretation and limitations
+
+Separate observed patterns from tested differential expression. Note design constraints, sample size and what this analysis cannot establish.
+
+# Reproduce
+
+Record the exact input preparation, analysis and verification commands.

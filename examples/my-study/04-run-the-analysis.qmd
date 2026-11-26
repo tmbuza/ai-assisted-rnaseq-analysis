@@ -1,15 +1,31 @@
-# Run the analysis
+# Run: Your own study
 
-## Command
+## Use the reviewed workflow
+
+Only after your study genuinely matches a supported layout, or a documented adaptation has been reviewed:
 
 ```bash
 Rscript scripts/R/run_workflow.R data/my-study results/my-study
 ```
 
-The workflow checks inputs again, saves sample totals, keeps genes with at least 10 counts in at least two samples, fits a DESeq2 negative binomial model, writes the result table, and creates a PCA plot from variance-stabilized values. The model is `~ group (template; change for your study)`; the contrast is **your stated contrast**. The reference condition is `A for the template`. A positive log2 fold change refers to higher model-estimated expression in `the numerator you explicitly set`.
+Read `results/my-study/run-log.txt` immediately. Confirm the exact formula, numerator and reference, prefilter and number of genes entering the result table. The command cannot infer your intended contrast from the wording of a research question.
 
-**For your study:** this command is valid only when your design genuinely matches one of the two supplied layouts. Edit the script and document the model and contrast before running another design. Ask a mentor to review confounding, pairing and replication.
+The raw sample-QC table uses all supplied genes. The gene prefilter then keeps counts ≥10 in at least two samples. Normalized and transformed tables contain retained genes, so their row counts can differ from both the original matrix and a sample's detected-gene count.
 
-The model uses raw integer gene counts; its normalization is part of the fitting procedure. The PCA is exploratory. Read `results/my-study/run-log.txt` and confirm its design and contrast before interpreting the table.
+## Interpret the representations correctly
+
+The model uses raw integer counts with DESeq2 size-factor normalization and dispersion estimation. Saved normalized counts divide by those estimated factors. Variance-stabilized values are for PCA and distances, not the differential test. Neither representation automatically removes donor or batch effects.
+
+The result table reports unshrunken log2 fold changes and their uncertainty. The default results request uses `alpha = 0.05`; colour indicates `padj < 0.05` without an effect-size threshold. The PCA uses up to 500 transformed genes; sample distances use all retained transformed genes.
+
+A selected gene is chosen for illustration after fitting. In your study, the extra simulation examples generally do not exist. Do not invent truth labels or compare plots as independent validation.
+
+## Inspect the run before drafting a conclusion
+
+Check raw totals, metadata labels, sample relationships and any unusual sample. Investigate a suspicious point using source records rather than deleting it solely to improve significance. Record a reasoned decision and rerun the complete workflow if inputs or analysis choices change.
+
+**Your task:** write down the actual model/contrast, retained-gene count, available-adjusted-p-value count and the outputs used for sample review. A run with no threshold-crossing genes should still be documented honestly.
+
+**Before moving on:** you have one completed, identifiable run with a contrast that matches the question.
 
 [Next: Verify and explain](05-verify-and-explain.qmd)

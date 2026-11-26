@@ -1,15 +1,33 @@
-# Check the inputs
+# Check: Your own study
 
-## Run the checks
+## Run without fitting
 
 ```bash
 Rscript scripts/R/run_workflow.R data/my-study results/my-study --check-only
 ```
 
-The script stops if it finds duplicate or missing identifiers, noninteger/negative counts, mismatched sample names, or an unsupported design. It reorders metadata to match count columns before modelling. Check that the reported sample and gene counts match your study records. A passing file check does not validate experimental design.
+The script reports dimensions and its chosen formula. Compare these with your analysis brief. Do not continue if the selected mode or formula differs from the design you intended.
 
-**Independent check:** open the metadata and count the biological replicates in each condition. In airway, check that each `cell` appears once as `untrt` and once as `trt`. If a variable is confounded with condition, stop and revisit the design; no script can recover a comparison absent from the data.
+Checks include required first-column names, unique nonempty IDs, matching sample sets, missing values, finite nonnegative integer counts and nonzero totals. Metadata are reordered to match matrix columns. The design matrix must be full rank with residual degrees of freedom.
 
-If the command fails, read the first error message and correct the named file. Do not edit the source counts to manufacture replication or remove troublesome samples without documenting the reason.
+For an unpaired A/B layout, the checker requires at least two samples per group; that is a software minimum, not a sample-size recommendation or confirmation of adequate power. For a donor-paired layout, every donor needs exactly one A and one B sample. Other pairing structures are unsupported without adaptation.
+
+## Check what the code cannot know
+
+Confirm biological independence, condition assignment, pairing and the possible overlap of batch with condition. Full rank does not prove that a variable is measured correctly or that important confounding is absent. A formula with no batch term does not adjust for batch simply because that column exists.
+
+Do not remove a sample or relabel a donor to make validation succeed. Investigate source records and document exclusions or code adaptations before inference.
+
+## Understand the filter to be applied
+
+During Run, genes need **counts ≥10 in at least two samples** across the input matrix. This is distinct from structural validation, DESeq2's independent filtering and sample quality review. Record this prefilter, and justify a code change if your assay requires another approach.
+
+## Your task
+
+Record dimensions, chosen formula, contrast, biological replicate counts and pairing. Note any unresolved design limitation. If you edited the script for this study, review how that affects the contrast, plotting branches and provenance as well as the model formula.
+
+**Optional AI prompt:** “Review my check record against the actual script's supported layouts. Identify mismatches without replacing biological knowledge with guessed labels.”
+
+**Before moving on:** file checks pass and you can defend the design actually selected by the code.
 
 [Next: Run the analysis](04-run-the-analysis.qmd)

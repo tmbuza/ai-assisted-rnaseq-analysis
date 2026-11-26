@@ -1,0 +1,59 @@
+# One workflow for every dataset
+
+Use the same seven steps with synthetic practice, airway data and your own study. Keep the original example filenames; their titles identify the learning step.
+
+| Step | Your decision or evidence |
+|---|---|
+| Define | Question, independent units, pairing and numerator/reference |
+| Preview | What each of six figures displays and does not establish |
+| Meet | Count-matrix orientation, sample metadata and provenance |
+| Check | File validation plus manual review of design and replication |
+| Run | One completed DESeq2 run with recorded model/contrast |
+| Verify and Explain | Independent arithmetic, correctly directed estimates and limits |
+| Write | A concise report in ignored `reports/` |
+
+## Use the output map
+
+Replace `DATASET` with `synthetic`, `airway` or `my-study`. Figures and TSV tables belong in `results/DATASET/figures/` and `results/DATASET/tables/` respectively.
+
+| Output | Evidence it records |
+|---|---|
+| `tables/sample-qc.tsv` | Raw totals and detected genes across all input genes |
+| `tables/differential-expression.tsv` | Retained-gene model estimates, standard errors and p-values |
+| `tables/size-factors.tsv`, `tables/normalized-counts.tsv` | Factors and retained raw counts divided by them |
+| `tables/transformed-counts.tsv` | Retained expression after variance stabilization |
+| `tables/pca-scores.tsv`, `tables/pca-variance.tsv` | Sample scores and percentages explained |
+| `tables/sample-distances.tsv` | Euclidean distances using all retained transformed genes |
+| `tables/selected-gene-counts.tsv` | Normalized counts for the illustrative selected gene |
+| `tables/example-gene-counts.tsv` | Optional synthetic multi-panel teaching examples |
+| `tables/input-script-hashes.tsv` | File fingerprints for the input/script version |
+| `run-log.txt`, `session-info.txt` | Design, contrast, filtering, gene selection and software |
+
+The six PNGs are `library-sizes.png`, `sample-pca.png`, `sample-distances.png`, `ma-plot.png`, `volcano.png` and `selected-gene.png`.
+
+## Keep three distinctions visible
+
+**Validation is not design review.** A readable matrix and full-rank formula cannot establish biological independence or accurate metadata.
+
+**Exploration is not the fitted test.** PCA and distances use transformed expression; DESeq2 inference uses raw counts with model-based normalization and dispersion. A visually separated group is not the statistical test of differential expression.
+
+**Verification has a scope.** The sample verifier checks two raw summaries. A raw-count/size-factor check explains a normalized display. Neither reconstructs all fitted coefficients or adjusted p-values. The script saves hashes but the sample verifier does not automatically validate them.
+
+Use AI after making your own observation: supply the relevant values, ask it to critique the interpretation, then check its response against files and design. Do not send private participant data or let AI invent metadata or results.
+
+Changing inputs, scripts or model choices requires a complete rerun and new checks before interpreting results. A report's prose does not update automatically.
+
+## Count the result sets explicitly
+
+In an R console opened from the main folder, set the dataset name for the run you are reviewing:
+
+```r
+dataset <- "synthetic"  # use "airway" or "my-study" for another run
+result <- read.delim(file.path("results", dataset, "tables", "differential-expression.tsv"))
+cat("Retained result rows:", nrow(result), "\n")
+cat("Available p-values:", sum(!is.na(result$pvalue)), "\n")
+cat("Available adjusted p-values:", sum(!is.na(result$padj)), "\n")
+cat("padj < 0.05:", sum(result$padj < 0.05, na.rm = TRUE), "\n")
+```
+
+The run log's `genes_tested` label records the number of retained result rows; not every row necessarily has an available p-value. Keep these counts separate in a report. Exit R with `q(save = "no")` before entering terminal commands.
