@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -126,6 +161,16 @@ ul.task-list li input[type="checkbox"] {
   <a href="./00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-run-the-workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">One workflow for every dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-write-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -139,37 +184,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Synthetic practice: learn the workflow</span></a>
+  <a href="./examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="./examples/synthetic/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the data</span></a>
+  <a href="./examples/synthetic/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="./examples/synthetic/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="./examples/synthetic/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="./examples/synthetic/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/synthetic/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="./examples/synthetic/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Synthetic practice</span></a>
   </div>
 </li>
       </ul>
@@ -185,37 +230,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Airway example: apply the workflow</span></a>
+  <a href="./examples/airway/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="./examples/airway/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the data</span></a>
+  <a href="./examples/airway/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="./examples/airway/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="./examples/airway/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="./examples/airway/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/airway/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="./examples/airway/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Airway case study</span></a>
   </div>
 </li>
       </ul>
@@ -231,37 +276,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
+  <a href="./examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="./examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the data</span></a>
+  <a href="./examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="./examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="./examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="./examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="./examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Your own study</span></a>
   </div>
 </li>
       </ul>
@@ -292,9 +337,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#key-terms" id="toc-key-terms" class="nav-link active" data-scroll-target="#key-terms">Key terms</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
-  <li><a href="#figure-methods" id="toc-figure-methods" class="nav-link" data-scroll-target="#figure-methods">Figure methods</a></li>
+  <li><a href="#key-quantities" id="toc-key-quantities" class="nav-link active" data-scroll-target="#key-quantities">Key quantities</a></li>
+  <li><a href="#missing-adjusted-p-values" id="toc-missing-adjusted-p-values" class="nav-link" data-scroll-target="#missing-adjusted-p-values">Missing adjusted p-values</a></li>
+  <li><a href="#model-and-input-troubleshooting" id="toc-model-and-input-troubleshooting" class="nav-link" data-scroll-target="#model-and-input-troubleshooting">Model and input troubleshooting</a></li>
+  <li><a href="#installation-and-environment-troubleshooting" id="toc-installation-and-environment-troubleshooting" class="nav-link" data-scroll-target="#installation-and-environment-troubleshooting">Installation and environment troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#environment-maintenance" id="toc-environment-maintenance" class="nav-link" data-scroll-target="#environment-maintenance">Maintainer-only environment creation</a></li>
+  </ul></li>
+  <li><a href="#sources-and-next-learning-steps" id="toc-sources-and-next-learning-steps" class="nav-link" data-scroll-target="#sources-and-next-learning-steps">Sources and next learning steps</a></li>
   </ul>
 </nav>
     </div>
@@ -320,27 +370,170 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="key-terms" class="level2">
-<h2 class="anchored" data-anchor-id="key-terms">Key terms</h2>
-<ul>
-<li><strong>Raw gene count:</strong> reads or fragments assigned to a gene in one sample; do not substitute TPM/FPKM for the count input here.</li>
-<li><strong>Library total:</strong> sum of raw counts in one column of the supplied count matrix; this is a count-table check, not a sequencing quality metric.</li>
-<li><strong>Log2 fold change:</strong> estimated treatment/group difference on a base-2 scale for the chosen contrast; positive means higher in the named numerator.</li>
-<li><strong>Adjusted p-value:</strong> p-value adjusted across many tested genes. <code>NA</code> values need investigation and should not be counted as significant.</li>
-<li><strong>Cell line term:</strong> in airway, accounts for baseline differences across the four measured cell lines.</li>
-</ul>
+<section id="key-quantities" class="level2">
+<h2 class="anchored" data-anchor-id="key-quantities">Key quantities</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning in this workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Raw count</td>
+<td>Supplied gene-level read/fragment count for one sample; not TPM/FPKM</td>
+</tr>
+<tr class="even">
+<td>Library total</td>
+<td>Sum of a raw matrix column, before gene filtering</td>
+</tr>
+<tr class="odd">
+<td>Detected genes</td>
+<td>Number of genes with raw count greater than zero in one sample</td>
+</tr>
+<tr class="even">
+<td>Retained gene</td>
+<td>A gene with counts ≥10 in at least two samples, entering the fitted dataset</td>
+</tr>
+<tr class="odd">
+<td>Size factor</td>
+<td>DESeq2’s sample-specific normalization factor; not necessarily the simulated library multiplier</td>
+</tr>
+<tr class="even">
+<td>Normalized count</td>
+<td>Retained raw count divided by the estimated size factor</td>
+</tr>
+<tr class="odd">
+<td>VST</td>
+<td>Variance-stabilizing transformation for exploration, not differential testing input</td>
+</tr>
+<tr class="even">
+<td>Log2 fold change</td>
+<td>Fitted effect for numerator relative to reference, accounting for design terms</td>
+</tr>
+<tr class="odd">
+<td><code>lfcSE</code></td>
+<td>Standard error of the reported log2 fold-change estimate</td>
+</tr>
+<tr class="even">
+<td><code>baseMean</code></td>
+<td>Mean normalized count across samples in the fitted dataset</td>
+</tr>
+<tr class="odd">
+<td><code>padj</code></td>
+<td>Multiple-testing-adjusted p-value; not the probability that a particular null is true</td>
+</tr>
+</tbody>
+</table>
+<p>A log2 fold change of 1 corresponds to a twofold model-estimated difference; −1 corresponds to half. The sign is meaningless without a named contrast. Effects in this script are unshrunken, so inspect their uncertainty rather than ranking solely by magnitude.</p>
+<p>The chosen <code>padj &lt; 0.05</code> rule targets false-discovery-rate control under the procedure’s assumptions. It does not promise that every called gene is true or biologically important. No minimum effect size is required by this script. The default two-sided test concerns a zero effect, not an explicitly tested minimum fold change.</p>
 </section>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
-<ul>
-<li><a href="https://bioconductor.org/packages/airway/">Bioconductor airway dataset</a></li>
-<li><a href="https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">Bioconductor RNA-seq gene-level workflow</a></li>
-<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 vignette</a></li>
-</ul>
+<section id="missing-adjusted-p-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-adjusted-p-values">Missing adjusted p-values</h2>
+<p>Do not replace <code>NA</code> with zero or count it as a discovery. A retained gene can lack an adjusted p-value because of DESeq2 independent filtering or lack a p-value because of outlier handling. Inspect its raw counts, <code>baseMean</code>, p-value and current DESeq2 documentation. The simple count prefilter and DESeq2 independent filtering are different decisions.</p>
+<p>The volcano omits missing adjusted p-values. Its numerical zero p-values are floored only for display; saved result values are not changed by plotting. PCA and the distance heatmap summarize transformed sample profiles, not gene-level test significance.</p>
 </section>
-<section id="figure-methods" class="level2">
-<h2 class="anchored" data-anchor-id="figure-methods">Figure methods</h2>
-<p>The plotting and transformation choices follow the <a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 documentation</a>, including sample distances, PCA, MA plots and normalized counts. This guide’s volcano uses adjusted p-values and unshrunken effects. Normalization and transformation do not remove donor effects; donor is handled by the differential expression design.</p>
+<section id="model-and-input-troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="model-and-input-troubleshooting">Model and input troubleshooting</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symptom</th>
+<th>What to inspect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Missing file</td>
+<td>Main project folder and exact relative path</td>
+</tr>
+<tr class="even">
+<td>IDs differ</td>
+<td>Count columns versus metadata sample_id values, including case</td>
+</tr>
+<tr class="odd">
+<td>Noninteger counts</td>
+<td>Wrong assay, normalized input, text or missing values</td>
+</tr>
+<tr class="even">
+<td>Missing metadata</td>
+<td>Required variables and extra columns; the checker rejects any missing value</td>
+</tr>
+<tr class="odd">
+<td>Incomplete pairs</td>
+<td>One sample per donor/condition is required by the paired template</td>
+</tr>
+<tr class="even">
+<td>Wrong mode/formula</td>
+<td>cell/dex takes priority over group; unsupported covariates are not inferred</td>
+</tr>
+<tr class="odd">
+<td>Rank/degree-of-freedom error</td>
+<td>Confounding, saturated design or insufficient replication</td>
+</tr>
+<tr class="even">
+<td>Normalized display disagrees</td>
+<td>Match samples by ID, use saved size factors and confirm the completed run</td>
+</tr>
+<tr class="odd">
+<td>Raw verification passes but fitted outputs look old</td>
+<td>The verifier checks only two raw summaries; inspect run logs/hashes and rerun fully</td>
+</tr>
+<tr class="even">
+<td>Missing report image</td>
+<td>Run the dataset workflow and use ../results/DATASET/figures/ from reports/</td>
+</tr>
+</tbody>
+</table>
+<p>Changing an input, formula or contrast requires a full rerun and new verification. The script records hashes but the sample verifier does not compare them automatically. An interrupted run may leave earlier outputs, so do not interpret a partially refreshed directory.</p>
+</section>
+<section id="installation-and-environment-troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="installation-and-environment-troubleshooting">Installation and environment troubleshooting</h2>
+<p>Use the R version recorded in the supplied lockfile. <code>renv</code> restores packages, not R or system compilation tools. Run <code>Rscript scripts/R/setup.R</code> from the main project folder; do not snapshot an incomplete installation.</p>
+<p>If an R console can load a package but the terminal cannot, check <code>.Rprofile</code>, <code>renv/activate.R</code>, the working folder and terminal R executable. In the terminal:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'cat("DESeq2 available:", requireNamespace("DESeq2", quietly = TRUE), "\n"); print(.libPaths())'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For an inconsistent environment, inspect <code>Rscript -e 'renv::status()'</code>. Keep the first download/compiler error when seeking help; the final dependent-package error may only be a consequence. Missing source compilers or system libraries need the remedy appropriate to that error and operating system, not repeated snapshots or arbitrary repository changes.</p>
+<section id="environment-maintenance" class="level3">
+<h3 class="anchored" data-anchor-id="environment-maintenance">Maintainer-only environment creation</h3>
+<p>Learners should receive an already tested lockfile and activation files. If maintaining a repository that has never been initialized, use a separate maintainer R session in the project folder to initialize an isolated library and install the intended packages:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(<span class="at">CRAN =</span> <span class="st">"https://cloud.r-project.org"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"renv"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">init</span>(<span class="at">bare =</span> <span class="cn">TRUE</span>, <span class="at">restart =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span>settings<span class="sc">$</span><span class="fu">snapshot.type</span>(<span class="st">"all"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"BiocManager"</span>, <span class="st">"ggplot2"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">"DESeq2"</span>, <span class="st">"airway"</span>, <span class="st">"SummarizedExperiment"</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ask =</span> <span class="cn">FALSE</span>, <span class="at">update =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">requireNamespace</span>(<span class="st">"DESeq2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="fu">requireNamespace</span>(<span class="st">"airway"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">requireNamespace</span>(<span class="st">"SummarizedExperiment"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is not a repair recipe for an existing tested environment. Keep that environment and its settings intact. For an initialized project, preserve the recorded package sources and restore rather than silently installing current versions.</p>
+<p>After successful synthetic and airway runs, independent checks and report rendering, the maintainer can snapshot the working environment in R:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>(<span class="at">prompt =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">status</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">q</span>(<span class="at">save =</span> <span class="st">"no"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Retain <code>renv.lock</code>, <code>.Rprofile</code>, <code>renv/activate.R</code>, <code>renv/settings.json</code> and <code>renv/.gitignore</code>; exclude the local library. Test restoration in a clean project copy before describing the environment as portable.</p>
+</section>
+</section>
+<section id="sources-and-next-learning-steps" class="level2">
+<h2 class="anchored" data-anchor-id="sources-and-next-learning-steps">Sources and next learning steps</h2>
+<ul>
+<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html">DESeq2 vignette</a>: count modelling, designs, contrasts, transformations and result interpretation.</li>
+<li><a href="https://bioconductor.org/packages/airway/">Airway package</a> and <a href="https://bioconductor.org/packages/release/data/experiment/vignettes/airway/inst/doc/airway.html">dataset vignette</a>: packaged data and study provenance.</li>
+<li><a href="https://doi.org/10.1371/journal.pone.0099625">Himes et al.&nbsp;(2014)</a>: original airway study.</li>
+<li><a href="https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html">Bioconductor gene-level RNA-seq workflow</a>: broader worked analysis.</li>
+<li><a href="https://rstudio.github.io/renv/articles/renv.html">renv introduction</a>: environment creation, recording and restoration.</li>
+</ul>
+<p>This guide makes its plotting/filtering choices explicit. It does not implement every optional method in these references. Consider gene annotation, effect-size shrinkage, additional sample QC, an appropriate extended design or functional analysis only when justified by the question and data.</p>
 
 
 </section>
@@ -747,8 +940,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./examples/my-study/06-export-the-report.html" class="pagination-link" aria-label="Write the report">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Write the report</span></span>
+      <a href="./examples/my-study/06-export-the-report.html" class="pagination-link" aria-label="Write: Your own study">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Write: Your own study</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

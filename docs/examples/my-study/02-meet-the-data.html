@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Meet the data – AI-Assisted RNA-Seq Analysis with R</title>
+<title>Meet: Your own study – AI-Assisted RNA-Seq Analysis with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -118,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/my-study/00-start-here.html">Your own study</a></li><li class="breadcrumb-item"><a href="../../examples/my-study/02-meet-the-data.html"><span class="chapter-title">Meet the data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/my-study/00-start-here.html">Your own study</a></li><li class="breadcrumb-item"><a href="../../examples/my-study/02-meet-the-data.html"><span class="chapter-title">Meet: Your own study</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -162,6 +127,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../../00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../01-run-the-workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">One workflow for every dataset</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../02-write-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -175,37 +150,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Synthetic practice: learn the workflow</span></a>
+  <a href="../../examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="../../examples/synthetic/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the data</span></a>
+  <a href="../../examples/synthetic/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="../../examples/synthetic/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="../../examples/synthetic/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="../../examples/synthetic/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Synthetic practice</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/synthetic/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="../../examples/synthetic/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Synthetic practice</span></a>
   </div>
 </li>
       </ul>
@@ -221,37 +196,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Airway example: apply the workflow</span></a>
+  <a href="../../examples/airway/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="../../examples/airway/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the data</span></a>
+  <a href="../../examples/airway/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="../../examples/airway/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="../../examples/airway/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="../../examples/airway/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Airway case study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/airway/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="../../examples/airway/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Airway case study</span></a>
   </div>
 </li>
       </ul>
@@ -267,37 +242,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
+  <a href="../../examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Define: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">See the result</span></a>
+  <a href="../../examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Meet the data</span></a>
+  <a href="../../examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Meet: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="../../examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="../../examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="../../examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and Explain: Your own study</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="../../examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write: Your own study</span></a>
   </div>
 </li>
       </ul>
@@ -328,16 +303,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-two-inputs" id="toc-the-two-inputs" class="nav-link active" data-scroll-target="#the-two-inputs">The two inputs</a></li>
+  <li><a href="#prepare-the-count-matrix-and-metadata" id="toc-prepare-the-count-matrix-and-metadata" class="nav-link active" data-scroll-target="#prepare-the-count-matrix-and-metadata">Prepare the count matrix and metadata</a></li>
+  <li><a href="#match-the-scripts-actual-design-interface" id="toc-match-the-scripts-actual-design-interface" class="nav-link" data-scroll-target="#match-the-scripts-actual-design-interface">Match the script’s actual design interface</a></li>
+  <li><a href="#preserve-provenance" id="toc-preserve-provenance" class="nav-link" data-scroll-target="#preserve-provenance">Preserve provenance</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/my-study/00-start-here.html">Your own study</a></li><li class="breadcrumb-item"><a href="../../examples/my-study/02-meet-the-data.html"><span class="chapter-title">Meet the data</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/my-study/00-start-here.html">Your own study</a></li><li class="breadcrumb-item"><a href="../../examples/my-study/02-meet-the-data.html"><span class="chapter-title">Meet: Your own study</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Meet the data</span></h1>
+<h1 class="title"><span class="chapter-title">Meet: Your own study</span></h1>
 </div>
 
 
@@ -354,8 +331,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="the-two-inputs" class="level2">
-<h2 class="anchored" data-anchor-id="the-two-inputs">The two inputs</h2>
+<section id="prepare-the-count-matrix-and-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-the-count-matrix-and-metadata">Prepare the count matrix and metadata</h2>
+<p>Place inputs in <code>data/my-study/</code>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Required layout</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gene-counts.tsv</code></td>
+<td>First column <code>gene_id</code>; one unique gene per row; one raw integer-count column per sample</td>
+</tr>
+<tr class="even">
+<td><code>sample-metadata.tsv</code></td>
+<td>First column <code>sample_id</code>; one unique row per sample; supported design columns</td>
+</tr>
+</tbody>
+</table>
+<p>Use tab-separated text with exact matching sample IDs. Do not supply TPM, FPKM, CPM, log counts or transformed expression to this matrix interface. Rounding normalized values does not recover raw counts. Quantification workflows requiring transcript-level imports need a suitable documented adaptation.</p>
+</section>
+<section id="match-the-scripts-actual-design-interface" class="level2">
+<h2 class="anchored" data-anchor-id="match-the-scripts-actual-design-interface">Match the script’s actual design interface</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -364,29 +368,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
-<th>File</th>
-<th>First column</th>
-<th>Other columns</th>
+<th>Metadata layout</th>
+<th>Model used</th>
+<th>Contrast</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>data/my-study/gene-counts.tsv</code></td>
-<td><code>gene_id</code> (one unique gene per row)</td>
-<td>One nonnegative integer count column per sample</td>
+<td><code>group</code> containing A and B, no <code>donor</code></td>
+<td><code>~ group</code></td>
+<td>B relative to A</td>
 </tr>
 <tr class="even">
-<td><code>data/my-study/sample-metadata.tsv</code></td>
-<td><code>sample_id</code> (one unique sample per row)</td>
-<td>Design variables, including a condition column</td>
+<td><code>group</code> A/B plus <code>donor</code>, one sample per donor in each group</td>
+<td><code>~ donor + group</code></td>
+<td>B relative to A, accounting for donor</td>
+</tr>
+<tr class="odd">
+<td><code>cell</code> plus <code>dex</code> containing untrt/trt, one of each per cell line</td>
+<td><code>~ cell + dex</code></td>
+<td>trt relative to untrt, accounting for cell line</td>
 </tr>
 </tbody>
 </table>
-<p>The current script accepts <code>group</code> with A/B for an independent replicated comparison, optionally with <code>donor</code> for complete A/B pairs, or <code>cell</code> plus <code>dex</code> with the airway paired layout. Your study may require a different design, level names, covariates or contrast: review and edit the script before inference. Do not rename real conditions A/B merely to force them through this template.</p>
-<p>To inspect just the header and first few rows in R:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">read.delim</span>(<span class="st">"data/my-study/gene-counts.tsv"</span>, <span class="at">check.names =</span> <span class="cn">FALSE</span>)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">read.delim</span>(<span class="st">"data/my-study/sample-metadata.tsv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Run those lines in an R console in the main project folder. Gene IDs are labels, not gene symbols unless the source annotation says so.</p>
+<p>If both <code>cell</code> and <code>dex</code> exist, the script chooses that layout before checking <code>group</code>. Do not leave misleading unused airway-style columns in your input. Other covariates are not automatically added to the design.</p>
+<p>Keep condition/source encodings and their original meanings documented. Unsupported designs require an explicit code change and review, not fabricated pairing or condition labels.</p>
+</section>
+<section id="preserve-provenance" class="level2">
+<h2 class="anchored" data-anchor-id="preserve-provenance">Preserve provenance</h2>
+<p>Record source, organism, count-generation method, annotation version, date and any identifier changes. Resolve duplicated gene labels using a documented upstream rule rather than dropping rows arbitrarily. Do not treat technical runs as independent biological replicates.</p>
+<p>The current checker rejects missing values anywhere in metadata. Keep the supplied table focused on complete, required analysis variables; preserve fuller source metadata separately. Never fill an unknown donor or condition with an invented value merely to pass checks.</p>
+<p><strong>Your task:</strong> trace one sample across matrix and metadata, identify its biological source and explain the selected design row. Protect participant identifiers before sharing files or AI prompts.</p>
 <p><a href="../../examples/my-study/03-check-the-inputs.html">Next: Check the inputs</a></p>
 
 
@@ -794,13 +806,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../examples/my-study/01-see-the-result.html" class="pagination-link" aria-label="See the result">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">See the result</span></span>
+      <a href="../../examples/my-study/01-see-the-result.html" class="pagination-link" aria-label="Preview: Your own study">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Preview: Your own study</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../examples/my-study/03-check-the-inputs.html" class="pagination-link" aria-label="Check the inputs">
-        <span class="nav-page-text"><span class="chapter-title">Check the inputs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../examples/my-study/03-check-the-inputs.html" class="pagination-link" aria-label="Check: Your own study">
+        <span class="nav-page-text"><span class="chapter-title">Check: Your own study</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
